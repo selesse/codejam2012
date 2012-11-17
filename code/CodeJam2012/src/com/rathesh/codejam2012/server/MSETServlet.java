@@ -90,10 +90,25 @@ public class MSETServlet extends HttpServlet {
     }
 
     // 2. Start price feed with 'H'
+    out.print('H');
+    out.flush();
     // 3. While still receiving prices (not receiving 'C')
-    // 4. Update strategies which will update managers, Managers will call
-    // sendBuy or Sell
-    // 5. Update clock
+    String token = "";
+    char c;
+    
+    try {
+      while ( (c = (char) in.read()) != 'C') {
+        System.out.println(c);
+        // 4. Update strategies which will update managers, Managers will call
+        // sendBuy or Sell
+        // 5. Update clock
+        
+      }
+    }
+    catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 
   public static void sendSell(String name, String type) {
