@@ -67,26 +67,34 @@ function get_break_time(time, half) {
 
 function show_manager_schedule(num_managers, schedule) {
   var id = "div#schedule";
-  var num_managers = num_managers || 4;
+  var num_managers = num_managers || 8;
 
-  m4_times = get_work_times(9);
-  m4_break = get_break_time(9);
+  m6_times = get_work_times(9);
+  m6_break = get_break_time(9);
 
-  m3_times = get_work_times(9, 30);
-  m3_break = get_break_time(9, 30);
+  m5_times = get_work_times(9);
+  m5_break = get_break_time(9);
 
   m2_times = get_work_times(13, 30);
   m2_break = get_break_time(13, 30);
 
-  m1_times = get_work_times(14);
-  m1_break = get_break_time(14, 30);
+  m1_times = get_work_times(13, 30);
+  m1_break = get_break_time(13, 30);
 
   var schedule = schedule || [
-    [Date.UTC(2012, 0, 1, m4_times[0][0], m4_times[0][1]), 4, Date.UTC(2012, 0, 1, m4_times[1][0], m4_times[1][1]), "Working"],
-    [Date.UTC(2012, 0, 1, m4_times[2][0], m4_times[2][1]), 4, Date.UTC(2012, 0, 1, m4_times[3][0], m4_times[3][1]), "Working"],
+    [Date.UTC(2012, 0, 1, 15, 30), 8, Date.UTC(2012, 0, 1, 16, 00), "Working"],
 
-    [Date.UTC(2012, 0, 1, m3_times[0][0], m3_times[0][1]), 3, Date.UTC(2012, 0, 1, m3_times[1][0], m3_times[1][1]), "Working"],
-    [Date.UTC(2012, 0, 1, m3_times[2][0], m3_times[2][1]), 3, Date.UTC(2012, 0, 1, m3_times[3][0], m3_times[3][1]), "Working"],
+    [Date.UTC(2012, 0, 1, 15, 30), 7, Date.UTC(2012, 0, 1, 16, 00), "Working"],
+
+    [Date.UTC(2012, 0, 1, m6_times[0][0], m6_times[0][1]), 6, Date.UTC(2012, 0, 1, m6_times[1][0], m6_times[1][1]), "Working"],
+    [Date.UTC(2012, 0, 1, m6_times[2][0], m6_times[2][1]), 6, Date.UTC(2012, 0, 1, m6_times[3][0], m6_times[3][1]), "Working"],
+
+    [Date.UTC(2012, 0, 1, m5_times[0][0], m5_times[0][1]), 5, Date.UTC(2012, 0, 1, m5_times[1][0], m5_times[1][1]), "Working"],
+    [Date.UTC(2012, 0, 1, m5_times[2][0], m5_times[2][1]), 5, Date.UTC(2012, 0, 1, m5_times[3][0], m5_times[3][1]), "Working"],
+
+    [Date.UTC(2012, 0, 1, 11, 0), 4, Date.UTC(2012, 0, 1, 11, 30), "Working"],
+
+    [Date.UTC(2012, 0, 1, 11, 0), 3, Date.UTC(2012, 0, 1, 11, 30), "Working"],
 
     [Date.UTC(2012, 0, 1, m2_times[0][0], m2_times[0][1]), 2, Date.UTC(2012, 0, 1, m2_times[1][0], m2_times[1][1]), "Working"],
     [Date.UTC(2012, 0, 1, m2_times[2][0], m2_times[2][1]), 2, Date.UTC(2012, 0, 1, m2_times[3][0], m2_times[3][1]), "Working"],
@@ -96,8 +104,8 @@ function show_manager_schedule(num_managers, schedule) {
   ];
 
   var breaks = [
-    [Date.UTC(2012, 0, 1, m4_break[0][0], m4_break[0][1]), 4, Date.UTC(2012, 0, 1, m4_break[1][0], m4_break[1][1]), "Break"],
-    [Date.UTC(2012, 0, 1, m3_break[0][0], m3_break[0][1]), 3, Date.UTC(2012, 0, 1, m3_break[1][0], m3_break[1][1]), "Break"],
+    [Date.UTC(2012, 0, 1, m6_break[0][0], m6_break[0][1]), 6, Date.UTC(2012, 0, 1, m6_break[1][0], m6_break[1][1]), "Break"],
+    [Date.UTC(2012, 0, 1, m5_break[0][0], m5_break[0][1]), 5, Date.UTC(2012, 0, 1, m5_break[1][0], m5_break[1][1]), "Break"],
     [Date.UTC(2012, 0, 1, m2_break[0][0], m2_break[0][1]), 2, Date.UTC(2012, 0, 1, m2_break[1][0], m2_break[1][1]), "Break"],
     [Date.UTC(2012, 0, 1, m1_break[0][0], m1_break[0][1]), 1, Date.UTC(2012, 0, 1, m1_break[1][0], m1_break[1][1]), "Break"],
   ];

@@ -27,10 +27,17 @@ import com.rathesh.codejam2012.server.strategies.TMAStrategy;
 public class MSETServlet extends HttpServlet {
 
   public static final String DOCTYPE = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">";
+<<<<<<< HEAD
   public static Socket tradeBookingSocket = null;
   public static PrintWriter outTradeBooking = null;
   public static BufferedReader inTradeBooking = null;
- private static Report report = new Report();
+  private static List<ReportData> transactions = new ArrayList<ReportData>();
+=======
+  private Socket tradeBookingSocket = null;
+  private static PrintWriter outTradeBooking = null;
+  private static BufferedReader inTradeBooking = null;
+  private static Report report = new Report();
+>>>>>>> 070199a3c0f2f2ba51a4d23ca7f3ea4b9e3981a4
   private static int time;
   public static DataDump dataDump = new DataDump();
   public static final int priceFeedPort = 8211;
