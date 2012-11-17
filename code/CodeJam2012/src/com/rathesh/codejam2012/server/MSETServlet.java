@@ -45,9 +45,10 @@ public class MSETServlet extends HttpServlet {
       startStockExchange();
     }
     else if (request.getParameter("report") != null) {
-
+      DataDump data = new DataDump();
+      data.setPrice(Lists.newArrayList(1.0,1.2,1.3,1.1));
+      out.println(data.toString());
     }
-    out.println(headWithTitle("Hello WWW") + "<BODY>\n" + "<H1>Hello WWW</H1>\n" + "</BODY></HTML>");
   }
 
   private void startStockExchange() {
