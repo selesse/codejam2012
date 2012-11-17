@@ -24,29 +24,72 @@ function plot_graph(id, data) {
   );
 }
 
+function get_work_times(time, half) {
+  var times = [];
+  half = half || 0;
+  times[0] = [time, half];
+  times[1] = [time + 2, half];
+
+  if (half == 30) {
+    times[2] = [time + 3, 0];
+    times[3] = [time + 5, 0];
+  }
+  else {
+    times[2] = [time + 2, 30];
+    times[3] = [time + 4, 30];
+  }
+
+  return times;
+}
+
+function get_break_time(time, half) {
+  var times = [];
+  if (half == 30) {
+    times[0] = [time + 2, 30];
+    times[1] = [time + 3, 0];
+  }
+  else {
+    times[0] = [time + 2, 0];
+    times[1] = [time + 2, 30];
+  }
+  return times;
+}
+
 function show_manager_schedule(num_managers, schedule) {
   var id = "div#schedule";
   var num_managers = num_managers || 4;
 
+  m4_times = get_work_times(9);
+  m4_break = get_break_time(9);
+
+  m3_times = get_work_times(9, 30);
+  m3_break = get_break_time(9, 30);
+
+  m2_times = get_work_times(13, 30);
+  m2_break = get_break_time(13, 30);
+
+  m1_times = get_work_times(14);
+  m1_break = get_break_time(14, 30);
+
   var schedule = schedule || [
-    [Date.UTC(2012, 0, 1, 9), 4, Date.UTC(2012, 0, 1, 11), "Working"],
-    [Date.UTC(2012, 0, 1, 11, 30), 4, Date.UTC(2012, 0, 1, 13, 30), "Working"],
+    [Date.UTC(2012, 0, 1, m4_times[0][0], m4_times[0][1]), 4, Date.UTC(2012, 0, 1, m4_times[1][0], m4_times[1][1]), "Working"],
+    [Date.UTC(2012, 0, 1, m4_times[2][0], m4_times[2][1]), 4, Date.UTC(2012, 0, 1, m4_times[3][0], m4_times[3][1]), "Working"],
 
-    [Date.UTC(2012, 0, 1, 10), 3, Date.UTC(2012, 0, 1, 12), "Working"],
-    [Date.UTC(2012, 0, 1, 12, 30), 3, Date.UTC(2012, 0, 1, 14, 30), "Working"],
+    [Date.UTC(2012, 0, 1, m3_times[0][0], m3_times[0][1]), 3, Date.UTC(2012, 0, 1, m3_times[1][0], m3_times[1][1]), "Working"],
+    [Date.UTC(2012, 0, 1, m3_times[2][0], m3_times[2][1]), 3, Date.UTC(2012, 0, 1, m3_times[3][0], m3_times[3][1]), "Working"],
 
-    [Date.UTC(2012, 0, 1, 12), 2, Date.UTC(2012, 0, 1, 14), "Working"],
-    [Date.UTC(2012, 0, 1, 14, 30), 2, Date.UTC(2012, 0, 1, 16, 30), "Working"],
+    [Date.UTC(2012, 0, 1, m2_times[0][0], m2_times[0][1]), 2, Date.UTC(2012, 0, 1, m2_times[1][0], m2_times[1][1]), "Working"],
+    [Date.UTC(2012, 0, 1, m2_times[2][0], m2_times[2][1]), 2, Date.UTC(2012, 0, 1, m2_times[3][0], m2_times[3][1]), "Working"],
 
-    [Date.UTC(2012, 0, 1, 13, 30), 1, Date.UTC(2012, 0, 1, 15, 30), "Working"],
-    [Date.UTC(2012, 0, 1, 16), 1, Date.UTC(2012, 0, 1, 18), "Working"],
+    [Date.UTC(2012, 0, 1, m1_times[0][0], m1_times[0][1]), 1, Date.UTC(2012, 0, 1, m1_times[1][0], m1_times[1][1]), "Working"],
+    [Date.UTC(2012, 0, 1, m1_times[1][0], m1_times[1][1]), 1, Date.UTC(2012, 0, 1, m1_times[3][0], m1_times[3][1]), "Working"],
   ];
 
   var breaks = [
-    [Date.UTC(2012, 0, 1, 11), 4, Date.UTC(2012, 0, 1, 11, 30), "Break"],
-    [Date.UTC(2012, 0, 1, 12), 3, Date.UTC(2012, 0, 1, 12, 30), "Break"],
-    [Date.UTC(2012, 0, 1, 14), 2, Date.UTC(2012, 0, 1, 14, 30), "Break"],
-    [Date.UTC(2012, 0, 1, 15, 30), 1, Date.UTC(2012, 0, 1, 16), "Break"],
+    [Date.UTC(2012, 0, 1, m4_break[0][0], m4_break[0][1]), 4, Date.UTC(2012, 0, 1, m4_break[1][0], m4_break[1][1]), "Break"],
+    [Date.UTC(2012, 0, 1, m3_break[0][0], m3_break[0][1]), 3, Date.UTC(2012, 0, 1, m3_break[1][0], m3_break[1][1]), "Break"],
+    [Date.UTC(2012, 0, 1, m2_break[0][0], m2_break[0][1]), 2, Date.UTC(2012, 0, 1, m2_break[1][0], m2_break[1][1]), "Break"],
+    [Date.UTC(2012, 0, 1, m1_break[0][0], m1_break[0][1]), 1, Date.UTC(2012, 0, 1, m1_break[1][0], m1_break[1][1]), "Break"],
   ];
 
   var managers = [];
