@@ -2,22 +2,22 @@ package com.rathesh.codejam2012.server.strategies;
 
 public class LWMAStrategy extends AbstractStrategy {
 
-  public LWMAStrategy(int N) {
-    super(N);
+  public LWMAStrategy(int N, boolean isFast) {
+    super(N, isFast);
   }
 
   @Override
   public double update(double price) {
 
-    if (this.prices.size() > N) {
+    if (this.prices.size() >= N) {
       this.prices.remove();
     }
     this.prices.add(price);
-    int count = 1;
+    int count = 0, i = 1;
     double linearAverage = 0;
     for (double d : this.prices) {
-      linearAverage += d * count;
-      count++;
+      linearAverage += d * i;
+      count+= i++;
     }
     this.averages.add(linearAverage / count);
 

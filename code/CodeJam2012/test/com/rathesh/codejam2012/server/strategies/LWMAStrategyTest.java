@@ -3,7 +3,7 @@
  */
 package com.rathesh.codejam2012.server.strategies;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -15,17 +15,17 @@ import com.google.common.collect.Lists;
  * @author Alex Bourgeois
  * 
  */
-public class SMAStrategyTest extends StrategyTest {
+public class LWMAStrategyTest extends StrategyTest {
 
   @Override
   protected List<Double> getExpected() {
-    return Lists.newArrayList(61.590, 61.515, 61.450, 61.505, 61.588, 61.792, 62.080, 62.428,
-        62.752, 63.032, 63.162, 63.210, 63.046, 62.826, 62.740);
+    return Lists.newArrayList(61.590, 61.490, 61.405, 61.511, 61.647, 61.988, 62.351, 62.677,
+        62.965, 63.154, 63.230, 63.216, 62.893, 62.607, 62.629);
   }
-  
+
   @Override
   protected void setupStrategy(int N, boolean flag) {
-    strat = new SMAStrategy(N, flag);
+    strat = new LWMAStrategy(N, flag);
   }
 
 }
