@@ -49,7 +49,7 @@ public class MSETServlet extends HttpServlet {
     }
     else if (request.getParameter("report") != null) {
       DataDump data = new DataDump();
-      data.setPrice(Lists.newArrayList(1.0,1.2,1.3,1.1));
+      data.setPrice(Lists.newArrayList(1.0, 1.2, 1.3, 1.1));
       out.println(data.toString());
     }
   }
@@ -90,10 +90,25 @@ public class MSETServlet extends HttpServlet {
       char c;
 
       while ((c = (char) in.read()) != 'C') {
-        System.out.println(c);
+        while (c != '|') {
+          token += c;
+          c = (char) in.read();
+        }
+        double price = Double.parseDouble(token);
         // 4. Update strategies which will update managers, Managers will call
         // sendBuy or Sell
+        SMASlow.update(price);
+        SMAFast.update(price);
+        LWMASlow.update(price);
+        LWMAFast.update(price);
+        EMASlow.update(price);
+        EMAFast.update(price);
+        TMASlow.update(price);
+        TMAFast.update(price);
         // 5. Update clock
+        token = "";
+        // Ignore the delimiter
+        in.read();
       }
     }
     catch (IOException e) {
