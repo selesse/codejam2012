@@ -35,7 +35,7 @@ public class DataDump {
     return price;
   }
   
-  public void setPrice(List<Double> prices) {
+  public void setPrices(List<Double> prices) {
     for (int i = 0; i < prices.size(); i++) {
       double[] point = new double[2];
       point[0] = i + 1;
