@@ -14,14 +14,24 @@ $(document).ready(function() {
   });
 });
 
-function plot_graph(id, data) {
-  data = data || [[0, 0], [1, 1]];
+function plot_graph(id, price, slow, fast) {
+  var graph_name = id.substring(id.indexOf("#") + 1, id.indexOf("-")).toUpperCase();
+
+  price = price || [ [0, 0], [2, 1] ];
+  slow = slow || [ [0, 0], [1, 0.25], [2, 1] ];
+  fast = fast || [ [0, 0], [1, 0.75], [2, 1] ];
+
+  var labels = [
+      { label : "Price", data: price },
+      { label : graph_name + " [5]", data: fast },
+      { label : graph_name + " [20]", data: slow },
+    ];
+
+  var options = {};
+
   // clear the HTML otherwise continually calling $.plot extends height
   $(id).html("");
-  $.plot( $(id),
-    [ { label : "Price", data : data } ],
-    { yaxis: { max: 1 } }
-  );
+  $.plot($(id), labels, options);
 }
 
 function get_work_times(time, half) {
