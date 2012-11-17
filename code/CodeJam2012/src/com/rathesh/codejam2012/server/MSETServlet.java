@@ -29,6 +29,8 @@ public class MSETServlet extends HttpServlet {
   private Socket tradeBookingSocket = null;
   private PrintWriter outTradeBooking = null;
   private BufferedReader inTradeBooking = null;
+  private final int priceFeedPort = 8211;
+  private final int tradeBookingPort = 8212;
 
   public static String headWithTitle(String title) {
     return (DOCTYPE + "\n" + "<HTML>\n" + "<HEAD><TITLE>" + title + "</TITLE></HEAD>\n");
@@ -53,7 +55,6 @@ public class MSETServlet extends HttpServlet {
   }
 
   private void startStockExchange() {
-    // TODO in here we need to
     Socket priceSocket = null;
     PrintWriter out = null;
     BufferedReader in = null;
@@ -71,40 +72,28 @@ public class MSETServlet extends HttpServlet {
 
     try {
       // Set sockets
-      priceSocket = new Socket("localhost", 3000);
-      tradeBookingSocket = new Socket("localhost", 3001);
-      
+      priceSocket = new Socket("localhost", priceFeedPort);
+      tradeBookingSocket = new Socket("localhost", tradeBookingPort);
+
       // Get streams
       out = new PrintWriter(priceSocket.getOutputStream(), true);
       in = new BufferedReader(new InputStreamReader(priceSocket.getInputStream()));
       outTradeBooking = new PrintWriter(tradeBookingSocket.getOutputStream(), true);
-      inTradeBooking = new BufferedReader(new InputStreamReader(tradeBookingSocket.getInputStream()));
-    }
-    catch (UnknownHostException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-      return;
-    }
-    catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-      return;
-    }
+      inTradeBooking = new BufferedReader(
+          new InputStreamReader(tradeBookingSocket.getInputStream()));
 
-    // 2. Start price feed with 'H'
-    out.print('H');
-    out.flush();
-    // 3. While still receiving prices (not receiving 'C')
-    String token = "";
-    char c;
-    
-    try {
-      while ( (c = (char) in.read()) != 'C') {
+      // 2. Start price feed with 'H'
+      out.println('H');
+      out.flush();
+      // 3. While still receiving prices (not receiving 'C')
+      String token = "";
+      char c;
+
+      while ((c = (char) in.read()) != 'C') {
         System.out.println(c);
         // 4. Update strategies which will update managers, Managers will call
         // sendBuy or Sell
         // 5. Update clock
-        
       }
     }
     catch (IOException e) {
