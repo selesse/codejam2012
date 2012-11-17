@@ -1,19 +1,18 @@
 package com.rathesh.codejam2012.server;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.common.collect.Lists;
+import com.ibm.icu.util.Calendar;
 import com.rathesh.codejam2012.server.strategies.EMAStrategy;
 import com.rathesh.codejam2012.server.strategies.LWMAStrategy;
 import com.rathesh.codejam2012.server.strategies.SMAStrategy;
@@ -23,9 +22,10 @@ import com.rathesh.codejam2012.server.strategies.TMAStrategy;
 /**
  * The server side implementation of the RPC service.
  */
-@SuppressWarnings("serial")
 public class MSETServlet extends HttpServlet {
 
+  private static final long serialVersionUID = -6640809899580890620L;
+  
   public static final String DOCTYPE = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">";
   private Socket tradeBookingSocket = null;
   private static PrintWriter outTradeBooking = null;
@@ -35,7 +35,7 @@ public class MSETServlet extends HttpServlet {
   private static DataDump dataDump = new DataDump();
   private final int priceFeedPort = 8211;
   private final int tradeBookingPort = 8212;
-  
+
   public DataDump getData() {
     return dataDump;
   }
@@ -56,11 +56,25 @@ public class MSETServlet extends HttpServlet {
       startStockExchange();
     }
     else if (request.getParameter("report") != null) {
-      // TODO
+      createReportFile(report.toString());
+      out.println(report.toString());
     }
     else if (request.getParameter("data") != null) {
       out.println(dataDump);
       out.flush();
+    }
+  }
+
+  private void createReportFile(String reportJson) {
+    try {
+      File file = new File("reportJson " + Calendar.getInstance() + ".json");
+      PrintWriter pw = new PrintWriter(file);
+      pw.println(reportJson);
+      pw.flush();
+      pw.close();
+    }
+    catch (IOException e) {
+
     }
   }
 
@@ -133,22 +147,19 @@ public class MSETServlet extends HttpServlet {
     // The exchange responds with a price, keep note of it for silanis :)
     outTradeBooking.println('S');
     outTradeBooking.flush();
-    
+
     String line;
     try {
       line = inTradeBooking.readLine();
       double price = Double.parseDouble(line);
-      Transaction transaction = new Transaction(time, "SELL", price, name, type);
+      Transaction transaction = new Transaction(time, "sell", price, name, type);
       report.add(transaction);
     }
     catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-    
-    
-   
-    
+
   }
 
   public static void sendBuy(String name, String type) {
@@ -161,13 +172,13 @@ public class MSETServlet extends HttpServlet {
     try {
       line = inTradeBooking.readLine();
       double price = Double.parseDouble(line);
-      Transaction transaction = new Transaction(time, "BUY", price, name, type);
+      Transaction transaction = new Transaction(time, "buy", price, name, type);
       report.add(transaction);
     }
     catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
-    } 
+    }
   }
 
 }
