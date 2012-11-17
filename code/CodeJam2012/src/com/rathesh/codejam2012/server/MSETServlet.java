@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.appengine.api.ThreadManager;
 import com.ibm.icu.util.Calendar;
 import com.rathesh.codejam2012.server.strategies.EMAStrategy;
 import com.rathesh.codejam2012.server.strategies.LWMAStrategy;
@@ -25,16 +26,16 @@ import com.rathesh.codejam2012.server.strategies.TMAStrategy;
 public class MSETServlet extends HttpServlet {
 
   private static final long serialVersionUID = -6640809899580890620L;
-  
+
   public static final String DOCTYPE = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">";
   public static Socket tradeBookingSocket = null;
   public static PrintWriter outTradeBooking = null;
   public static BufferedReader inTradeBooking = null;
- private static Report report = new Report();
+  private static Report report = new Report();
   private static int time;
   public static DataDump dataDump = new DataDump();
   public static final int priceFeedPort = 8211;
-  public static final int tradeBookingPort = 8212;
+  public static final int tradeBookingPort = 8311;
 
   public DataDump getData() {
     return dataDump;
@@ -53,8 +54,10 @@ public class MSETServlet extends HttpServlet {
     response.setContentType("application/json");
     PrintWriter out = response.getWriter();
     if (request.getParameter("go") != null) {
-      Thread t = new Thread(new StockExchange());
+      Thread t = ThreadManager.createBackgroundThread(new StockExchange());
       t.start();
+      // Thread t = new Thread(new StockExchange());
+      // t.start();
     }
     else if (request.getParameter("report") != null) {
       createReportFile(report.toString());
