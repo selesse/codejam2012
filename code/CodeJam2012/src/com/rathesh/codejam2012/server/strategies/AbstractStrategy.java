@@ -9,8 +9,8 @@ import com.google.common.collect.*;
 public abstract class AbstractStrategy implements Strategy {
 
   int N;
-  Queue<Double> prices;
-  List<Double> averages;
+  protected Queue<Double> prices;
+  protected List<Double> averages;
   
   public AbstractStrategy(int N) {
     this.N = N;
