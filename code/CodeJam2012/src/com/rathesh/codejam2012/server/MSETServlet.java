@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -27,8 +29,10 @@ public class MSETServlet extends HttpServlet {
 
   public static final String DOCTYPE = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">";
   private Socket tradeBookingSocket = null;
-  private PrintWriter outTradeBooking = null;
-  private BufferedReader inTradeBooking = null;
+  private static PrintWriter outTradeBooking = null;
+  private static BufferedReader inTradeBooking = null;
+  private static List<ReportData> transactions = new ArrayList<ReportData>();
+  private static int time;
   private final int priceFeedPort = 8211;
   private final int tradeBookingPort = 8212;
 
@@ -121,13 +125,43 @@ public class MSETServlet extends HttpServlet {
     // TODO in here we need to
     // Send 'S' through trade booking socket
     // The exchange responds with a price, keep note of it for silanis :)
+    outTradeBooking.println('S');
+    outTradeBooking.flush();
+    
+    String line;
+    try {
+      line = inTradeBooking.readLine();
+      double price = Double.parseDouble(line);
+      ReportData transaction = new ReportData(time, "SELL", price, name, type);
+      transactions.add(transaction);
+    }
+    catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    
+    
+   
+    
   }
 
   public static void sendBuy(String name, String type) {
     // TODO in here we need to
     // Send 'B' through trade booking socket
     // The exchange responds with a price, keep note of it for silanis :)
-
+    outTradeBooking.println('B');
+    outTradeBooking.flush();
+    String line;
+    try {
+      line = inTradeBooking.readLine();
+      double price = Double.parseDouble(line);
+      ReportData transaction = new ReportData(time, "BUY", price, name, type);
+      transactions.add(transaction);
+    }
+    catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } 
   }
 
 }
