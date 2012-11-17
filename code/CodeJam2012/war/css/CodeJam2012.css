@@ -10,5 +10,6 @@ h1#title {
 
 div.graph {
   min-height: 225px;
-  text-align: center;
+  min-width: 300px;
+  margin: 20px 10px;
 }
