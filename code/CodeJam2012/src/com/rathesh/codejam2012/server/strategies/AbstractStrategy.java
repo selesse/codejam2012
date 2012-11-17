@@ -17,14 +17,8 @@ public abstract class AbstractStrategy implements Strategy {
   }
 
   @Override
-  public double update(double price) {
-    // TODO Auto-generated method stub
-    return getAverage();
-  }
-
-  @Override
   public double getAverage() {
-    if (averages.size() - 1 < 0) {
+    if (averages.size() < 1) {
       return -1;
     }
     return this.averages.get(averages.size() - 1);

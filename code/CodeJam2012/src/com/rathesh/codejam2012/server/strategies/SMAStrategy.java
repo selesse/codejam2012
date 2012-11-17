@@ -15,21 +15,28 @@ public class SMAStrategy extends AbstractStrategy {
 
   @Override
   public double update(double price) {
-    // Update prices queue
-    double ptMinusN = this.prices.poll();
-    this.prices.add(price);
-
-    // Update averages list
-    double SMAt = 0;
     int t = this.prices.size();
-    if (t > N) {
+    double SMAt = 0;
+    if (t >= N) {
+      // Update prices
+      double ptMinusN = this.prices.poll();
+      this.prices.add(price);
+
+      // Calculate simple moving average
       SMAt = getAverage() - (ptMinusN / N) + (price / N);
     }
     else {
+      // Update prices
+      this.prices.add(price);
+      t++;
+      
+      // Calculate simple moving average
       for (double p : this.prices) {
         SMAt += p / t;
       }
     }
+    
+    // Update averages
     this.averages.add(SMAt);
     return SMAt;
   }
