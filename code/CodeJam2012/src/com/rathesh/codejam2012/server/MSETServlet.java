@@ -30,7 +30,7 @@ public class MSETServlet extends HttpServlet {
   private Socket tradeBookingSocket = null;
   private static PrintWriter outTradeBooking = null;
   private static BufferedReader inTradeBooking = null;
-  private static List<ReportData> transactions = new ArrayList<ReportData>();
+  private static Report report = new Report();
   private static int time;
   private static DataDump dataDump = new DataDump();
   private final int priceFeedPort = 8211;
@@ -138,8 +138,8 @@ public class MSETServlet extends HttpServlet {
     try {
       line = inTradeBooking.readLine();
       double price = Double.parseDouble(line);
-      ReportData transaction = new ReportData(time, "SELL", price, name, type);
-      transactions.add(transaction);
+      Transaction transaction = new Transaction(time, "SELL", price, name, type);
+      report.add(transaction);
     }
     catch (IOException e) {
       // TODO Auto-generated catch block
@@ -161,8 +161,8 @@ public class MSETServlet extends HttpServlet {
     try {
       line = inTradeBooking.readLine();
       double price = Double.parseDouble(line);
-      ReportData transaction = new ReportData(time, "BUY", price, name, type);
-      transactions.add(transaction);
+      Transaction transaction = new Transaction(time, "BUY", price, name, type);
+      report.add(transaction);
     }
     catch (IOException e) {
       // TODO Auto-generated catch block
