@@ -26,8 +26,8 @@ public class MSETServlet extends HttpServlet {
 
   public static final String DOCTYPE = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">";
   private Socket tradeBookingSocket = null;
-  private PrintWriter outTradeBooking = null;
-  private BufferedReader inTradeBooking = null;
+  private static PrintWriter outTradeBooking = null;
+  private static BufferedReader inTradeBooking = null;
 
   public static String headWithTitle(String title) {
     return (DOCTYPE + "\n" + "<HTML>\n" + "<HEAD><TITLE>" + title + "</TITLE></HEAD>\n");
@@ -100,6 +100,8 @@ public class MSETServlet extends HttpServlet {
     // TODO in here we need to
     // Send 'S' through trade booking socket
     // The exchange responds with a price, keep note of it for silanis :)
+    outTradeBooking.print('S');
+    
   }
 
   public static void sendBuy(String name, String type) {
