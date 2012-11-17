@@ -6,3 +6,6 @@
 */web-app/gwt
 */web-app/WEB-INF/classes
 target.class
+code/CodeJam2012/gwt-unitCache/
+code/CodeJam2012/war/WEB-INF/deploy/
+code/CodeJam2012/war/codejam2012/
