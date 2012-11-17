@@ -1,9 +1,9 @@
 package com.rathesh.codejam2012.server.strategies;
 
-public class LWMA extends AbstractStrategy {
+public class LWMAStrategy extends AbstractStrategy {
   double division;
 
-  public LWMA(int N) {
+  public LWMAStrategy(int N) {
     super(N);
     division = ((double) N * ((double) N + 1)) / (double) 2;
   }
