@@ -1,10 +1,11 @@
 package com.rathesh.codejam2012.server.strategies;
 
 import java.util.List;
+import java.util.Observable;
 import java.util.Queue;
 import com.google.common.collect.*;
 
-public abstract class AbstractStrategy implements Strategy {
+public abstract class AbstractStrategy extends Observable implements Strategy   {
 
   protected int N;
   protected Queue<Double> prices;
