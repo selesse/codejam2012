@@ -31,7 +31,7 @@ public class TMAStrategy extends AbstractStrategy {
     }
 
     this.averages.add(triangularAverage);
-
+    this.notifyObservers(triangularAverage);
     return this.getAverage();
   }
 
