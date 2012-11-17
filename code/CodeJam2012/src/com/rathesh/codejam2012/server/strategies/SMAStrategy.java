@@ -29,13 +29,13 @@ public class SMAStrategy extends AbstractStrategy {
       // Update prices
       this.prices.add(price);
       t++;
-      
+
       // Calculate simple moving average
       for (double p : this.prices) {
         SMAt += p / t;
       }
     }
-    
+
     // Update averages
     this.averages.add(SMAt);
     return SMAt;

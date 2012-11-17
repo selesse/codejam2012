@@ -20,13 +20,13 @@ public class TMAStrategy extends AbstractStrategy {
       for (int i = 0; i < smaAverages.size(); i++) {
         triangularAverage += smaAverages.get(i);
       }
-      triangularAverage = triangularAverage/(double)N;
+      triangularAverage = triangularAverage / (double) N;
     }
     else {
       for (int i = (smaAverages.size() - 1 - N); i < smaAverages.size(); i++) {
         triangularAverage += smaAverages.get(i);
       }
-      triangularAverage = triangularAverage/(double)smaAverages.size();
+      triangularAverage = triangularAverage / (double) smaAverages.size();
     }
 
     this.averages.add(triangularAverage);

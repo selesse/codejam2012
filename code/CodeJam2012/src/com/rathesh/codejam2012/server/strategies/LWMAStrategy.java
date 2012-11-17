@@ -1,11 +1,9 @@
 package com.rathesh.codejam2012.server.strategies;
 
 public class LWMAStrategy extends AbstractStrategy {
- 
 
   public LWMAStrategy(int N) {
     super(N);
-    
   }
 
   @Override
