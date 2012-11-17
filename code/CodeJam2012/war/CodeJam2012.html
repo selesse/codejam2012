@@ -19,6 +19,8 @@
 
     <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="js/flot/jquery.flot.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.highlighter.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.gantt.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
 
     <!--                                           -->
@@ -53,48 +55,53 @@
 
     <div class="container">
 
-      <div class="row">
-        <div class="span6" id="sma">
-          <div class="alert alert-info center">
-            Simple Moving Average (price vs. time)
-          </div>
+      <div id="schedule">
 
-          <div class="graph" id="sma-graph">
-            <!-- place holder for flot -->
-          </div>
-
-        </div>
-
-        <div class="span6" id="lwma">
-          <div class="alert alert-info center">
-            Linear Weighted Moving Average (price vs. time)
-          </div>
-          <div class="graph" id="lwma-graph">
-            <!-- place holder for lwma -->
-          </div>
-        </div>
       </div>
 
-      <div class="row">
-        <div class="span6" id="ema">
-          <div class="alert alert-info center">
-            Exponential Moving Average (price vs. time)
-          </div>
-          <div class="graph" id="ema-graph">
-            <!-- place holder for ema -->
-          </div>
-        </div>
+      <div class="hidden" id="graphs">
+          <div class="row">
+            <div class="span6" id="sma">
+              <div class="alert alert-info center">
+                Simple Moving Average (price vs. time)
+              </div>
 
-        <div class="span6" id="tma">
-          <div class="alert alert-info center">
-            Triangular Moving Average (price vs. time)
+              <div class="graph" id="sma-graph">
+                <!-- place holder for flot -->
+              </div>
+
+            </div>
+
+            <div class="span6" id="lwma">
+              <div class="alert alert-info center">
+                Linear Weighted Moving Average (price vs. time)
+              </div>
+              <div class="graph" id="lwma-graph">
+                <!-- place holder for lwma -->
+              </div>
+            </div>
           </div>
-          <div class="graph" id="tma-graph">
-            <!-- place holder for tma -->
+
+          <div class="row">
+            <div class="span6" id="ema">
+              <div class="alert alert-info center">
+                Exponential Moving Average (price vs. time)
+              </div>
+              <div class="graph" id="ema-graph">
+                <!-- place holder for ema -->
+              </div>
+            </div>
+
+            <div class="span6" id="tma">
+              <div class="alert alert-info center">
+                Triangular Moving Average (price vs. time)
+              </div>
+              <div class="graph" id="tma-graph">
+                <!-- place holder for tma -->
+              </div>
+            </div>
           </div>
-        </div>
       </div>
-
       <div class="controls center">
         <button id="go" class="btn btn-primary btn-large" type="button" title="Begin the application.">Go</button>
         <button id="report" class="btn btn-primary btn-large disabled" type="button" title="Generate a report.">Report</button>
