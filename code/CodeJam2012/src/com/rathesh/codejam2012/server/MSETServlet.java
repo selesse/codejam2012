@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.common.collect.Lists;
 import com.rathesh.codejam2012.server.strategies.EMAStrategy;
 import com.rathesh.codejam2012.server.strategies.LWMAStrategy;
 import com.rathesh.codejam2012.server.strategies.SMAStrategy;
@@ -45,9 +46,10 @@ public class MSETServlet extends HttpServlet {
       startStockExchange();
     }
     else if (request.getParameter("report") != null) {
-
+      DataDump data = new DataDump();
+      data.setPrice(Lists.newArrayList(1.0,1.2,1.3,1.1));
+      out.println(data.toString());
     }
-    out.println(headWithTitle("Hello WWW") + "<BODY>\n" + "<H1>Hello WWW</H1>\n" + "</BODY></HTML>");
   }
 
   private void startStockExchange() {
