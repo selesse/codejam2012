@@ -13,3 +13,16 @@ div.graph {
   min-width: 300px;
   margin: 20px 10px;
 }
+
+.hidden {
+  display: none;
+}
+
+div#graphs {
+  min-height: 600px;
+  min-width: 1200px;
+}
+
+div#schedule {
+  min-height: 600px;
+}
