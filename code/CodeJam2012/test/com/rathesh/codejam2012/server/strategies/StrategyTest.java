@@ -18,7 +18,7 @@ import com.google.common.collect.Lists;
 public abstract class StrategyTest {
 
   protected Strategy strat;
-  protected double tol = 0.000001;
+  protected double tol = 0.001;
   protected List<Double> prices = Lists.newArrayList(61.590, 61.440, 61.320, 61.670, 61.920,
       62.610, 62.880, 63.060, 63.290, 63.320, 63.260, 63.120, 62.240, 62.190, 62.890);
   protected List<Double> expected = getExpected();
