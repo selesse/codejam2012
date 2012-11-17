@@ -101,6 +101,7 @@ public class MSETServlet extends HttpServlet {
     // Send 'S' through trade booking socket
     // The exchange responds with a price, keep note of it for silanis :)
     outTradeBooking.print('S');
+   
     
   }
 
