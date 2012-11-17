@@ -27,14 +27,14 @@ import com.rathesh.codejam2012.server.strategies.TMAStrategy;
 public class MSETServlet extends HttpServlet {
 
   public static final String DOCTYPE = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">";
-  private Socket tradeBookingSocket = null;
-  private static PrintWriter outTradeBooking = null;
-  private static BufferedReader inTradeBooking = null;
+  public static Socket tradeBookingSocket = null;
+  public static PrintWriter outTradeBooking = null;
+  public static BufferedReader inTradeBooking = null;
   private static List<ReportData> transactions = new ArrayList<ReportData>();
   private static int time;
-  private static DataDump dataDump = new DataDump();
-  private final int priceFeedPort = 8211;
-  private final int tradeBookingPort = 8212;
+  public static DataDump dataDump = new DataDump();
+  public static final int priceFeedPort = 8211;
+  public static final int tradeBookingPort = 8212;
   
   public DataDump getData() {
     return dataDump;
@@ -53,7 +53,8 @@ public class MSETServlet extends HttpServlet {
     response.setContentType("application/json");
     PrintWriter out = response.getWriter();
     if (request.getParameter("go") != null) {
-      startStockExchange();
+      Thread t = new Thread(new StockExchange());
+      t.start();
     }
     else if (request.getParameter("report") != null) {
       // TODO
@@ -61,69 +62,6 @@ public class MSETServlet extends HttpServlet {
     else if (request.getParameter("data") != null) {
       out.println(dataDump);
       out.flush();
-    }
-  }
-
-  private void startStockExchange() {
-    Socket priceSocket = null;
-    PrintWriter out = null;
-    BufferedReader in = null;
-
-    // 0. Create strategies and managers
-    int slowN = 20, fastN = 5;
-    Strategy SMASlow = new SMAStrategy(slowN, false);
-    Strategy SMAFast = new SMAStrategy(fastN, true);
-    Strategy LWMASlow = new LWMAStrategy(slowN, false);
-    Strategy LWMAFast = new LWMAStrategy(fastN, true);
-    Strategy EMASlow = new EMAStrategy(slowN, false);
-    Strategy EMAFast = new EMAStrategy(fastN, true);
-    Strategy TMASlow = new TMAStrategy(slowN, false);
-    Strategy TMAFast = new TMAStrategy(fastN, true);
-
-    try {
-      // Set sockets
-      priceSocket = new Socket("localhost", priceFeedPort);
-      tradeBookingSocket = new Socket("localhost", tradeBookingPort);
-
-      // Get streams
-      out = new PrintWriter(priceSocket.getOutputStream(), true);
-      in = new BufferedReader(new InputStreamReader(priceSocket.getInputStream()));
-      outTradeBooking = new PrintWriter(tradeBookingSocket.getOutputStream(), true);
-      inTradeBooking = new BufferedReader(
-          new InputStreamReader(tradeBookingSocket.getInputStream()));
-
-      // 2. Start price feed with 'H'
-      out.println('H');
-      out.flush();
-      // 3. While still receiving prices (not receiving 'C')
-      String token = "";
-      char c;
-
-      while ((c = (char) in.read()) != 'C') {
-        while (c != '|') {
-          token += c;
-          c = (char) in.read();
-        }
-        double price = Double.parseDouble(token);
-        // 4. Update strategies which will update managers, Managers will call
-        // sendBuy or Sell
-        SMASlow.update(price);
-        SMAFast.update(price);
-        LWMASlow.update(price);
-        LWMAFast.update(price);
-        EMASlow.update(price);
-        EMAFast.update(price);
-        TMASlow.update(price);
-        TMAFast.update(price);
-        // 5. Update clock
-        token = "";
-        // Ignore the delimiter
-        in.read();
-      }
-    }
-    catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
     }
   }
 
