@@ -20,7 +20,7 @@ public class LWMAStrategy extends AbstractStrategy {
       count+= i++;
     }
     this.averages.add(linearAverage / count);
-
+    this.notifyObservers(linearAverage / count);
     return this.getAverage();
   }
 

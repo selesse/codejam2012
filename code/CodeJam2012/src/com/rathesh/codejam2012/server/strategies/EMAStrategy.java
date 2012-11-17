@@ -27,7 +27,7 @@ public class EMAStrategy extends AbstractStrategy {
       average = prevAvg + alpha * (price - prevAvg);
       this.averages.add(average);
     }
-
+    this.notifyObservers(average);
     return average;
   }
 
