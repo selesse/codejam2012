@@ -23,8 +23,9 @@ public class TMAStrategyTest extends StrategyTest {
         62.128, 62.417, 62.691, 62.917, 63.040, 63.055, 62.997);
   }
 
-  protected void setupStrategy(int N) {
-    strat = new TMAStrategy(N);
+  @Override
+  protected void setupStrategy(int N, boolean flag) {
+    strat = new TMAStrategy(N, flag);
   }
 
 }

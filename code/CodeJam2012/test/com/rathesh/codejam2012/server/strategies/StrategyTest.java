@@ -27,12 +27,12 @@ public abstract class StrategyTest {
     return null;
   }
 
-  protected void setupStrategy(int N) {
+  protected void setupStrategy(int N, boolean flag) {
   }
 
   @Test
   public void update() {
-    setupStrategy(5);
+    setupStrategy(5, true);
     double avg;
     for (int i = 0; i < prices.size(); i++) {
       avg = strat.update(prices.get(i));
@@ -42,7 +42,7 @@ public abstract class StrategyTest {
 
   @Test
   public void averageWithConstantPrice() {
-    setupStrategy(4);
+    setupStrategy(4, false);
     strat.update(1);
     strat.update(1);
     strat.update(1);
@@ -56,7 +56,7 @@ public abstract class StrategyTest {
 
   @Test
   public void average() {
-    setupStrategy(5);
+    setupStrategy(5, true);
     int i = 0;
     for (; i < 4; i++) {
       strat.update(prices.get(i));
@@ -75,7 +75,7 @@ public abstract class StrategyTest {
 
   @Test
   public void averages() {
-    setupStrategy(5);
+    setupStrategy(5, false);
     int i = 0;
     for (; i < 4; i++) {
       strat.update(prices.get(i));

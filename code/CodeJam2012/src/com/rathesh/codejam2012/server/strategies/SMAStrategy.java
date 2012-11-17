@@ -9,8 +9,8 @@ package com.rathesh.codejam2012.server.strategies;
  */
 public class SMAStrategy extends AbstractStrategy {
 
-  public SMAStrategy(int N) {
-    super(N);
+  public SMAStrategy(int N, boolean isFast) {
+    super(N, isFast);
   }
 
   @Override

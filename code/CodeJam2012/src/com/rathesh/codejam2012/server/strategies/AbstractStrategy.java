@@ -9,9 +9,11 @@ public abstract class AbstractStrategy implements Strategy {
   protected int N;
   protected Queue<Double> prices;
   protected List<Double> averages;
+  protected boolean flag;
 
-  public AbstractStrategy(int N) {
+  public AbstractStrategy(int N, boolean isFast) {
     this.N = N;
+    this.flag = isFast;
     prices = Queues.newArrayBlockingQueue(N);
     averages = Lists.newArrayList();
   }
@@ -27,5 +29,10 @@ public abstract class AbstractStrategy implements Strategy {
   @Override
   public List<Double> getAverages() {
     return this.averages;
+  }
+  
+  @Override
+  public boolean isFast() {
+    return flag;
   }
 }

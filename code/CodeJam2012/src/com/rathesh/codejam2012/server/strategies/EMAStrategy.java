@@ -10,8 +10,8 @@ package com.rathesh.codejam2012.server.strategies;
 public class EMAStrategy extends AbstractStrategy {
   double alpha;
 
-  public EMAStrategy(int N) {
-    super(N);
+  public EMAStrategy(int N, boolean isFast) {
+    super(N, isFast);
     alpha = (2 / ((double) N + 1));
   }
 

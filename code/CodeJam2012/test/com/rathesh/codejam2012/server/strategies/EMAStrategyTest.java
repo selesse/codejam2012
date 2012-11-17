@@ -23,8 +23,9 @@ public class EMAStrategyTest extends StrategyTest {
         62.790, 62.966, 63.064, 63.083, 62.802, 62.598, 62.695);
   }
 
-  protected void setupStrategy(int N) {
-    strat = new EMAStrategy(N);
+  @Override
+  protected void setupStrategy(int N, boolean flag) {
+    strat = new EMAStrategy(N, flag);
   }
 
 }

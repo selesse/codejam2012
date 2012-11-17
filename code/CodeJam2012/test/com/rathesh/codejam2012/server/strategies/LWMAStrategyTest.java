@@ -23,8 +23,9 @@ public class LWMAStrategyTest extends StrategyTest {
         62.965, 63.154, 63.230, 63.216, 62.893, 62.607, 62.629);
   }
 
-  protected void setupStrategy(int N) {
-    strat = new LWMAStrategy(N);
+  @Override
+  protected void setupStrategy(int N, boolean flag) {
+    strat = new LWMAStrategy(N, flag);
   }
 
 }

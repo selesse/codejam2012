@@ -5,9 +5,9 @@ import java.util.List;
 public class TMAStrategy extends AbstractStrategy {
   protected SMAStrategy smaStrategy;
 
-  public TMAStrategy(int N) {
-    super(N);
-    smaStrategy = new SMAStrategy(N);
+  public TMAStrategy(int N, boolean isFast) {
+    super(N, isFast);
+    smaStrategy = new SMAStrategy(N, isFast);
   }
 
   @Override

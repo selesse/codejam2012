@@ -23,8 +23,9 @@ public class SMAStrategyTest extends StrategyTest {
         62.752, 63.032, 63.162, 63.210, 63.046, 62.826, 62.740);
   }
   
-  protected void setupStrategy(int N) {
-    strat = new SMAStrategy(N);
+  @Override
+  protected void setupStrategy(int N, boolean flag) {
+    strat = new SMAStrategy(N, flag);
   }
 
 }

@@ -6,6 +6,7 @@ public interface Strategy {
   public double update(double price);
   public double getAverage();
   public List<Double> getAverages();
+  public boolean isFast();
 }
 
 
