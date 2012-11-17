@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +32,13 @@ public class MSETServlet extends HttpServlet {
   private static BufferedReader inTradeBooking = null;
   private static List<ReportData> transactions = new ArrayList<ReportData>();
   private static int time;
+  private static DataDump dataDump = new DataDump();
   private final int priceFeedPort = 8211;
   private final int tradeBookingPort = 8212;
+  
+  public DataDump getData() {
+    return dataDump;
+  }
 
   public static String headWithTitle(String title) {
     return (DOCTYPE + "\n" + "<HTML>\n" + "<HEAD><TITLE>" + title + "</TITLE></HEAD>\n");
@@ -52,9 +56,11 @@ public class MSETServlet extends HttpServlet {
       startStockExchange();
     }
     else if (request.getParameter("report") != null) {
-      DataDump data = new DataDump();
-      data.setPrice(Lists.newArrayList(1.0,1.2,1.3,1.1));
-      out.println(data.toString());
+      // TODO
+    }
+    else if (request.getParameter("data") != null) {
+      out.println(dataDump);
+      out.flush();
     }
   }
 
