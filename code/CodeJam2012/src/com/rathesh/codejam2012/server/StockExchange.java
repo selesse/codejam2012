@@ -89,8 +89,6 @@ public class StockExchange implements Runnable {
         TMAFast.update(price);
         // 5. Update clock
         token = "";
-        // Ignore the delimiter
-        in.read();
 
         synchronized (MSETServlet.dataDump) {
           MSETServlet.dataDump.setPrices(prices);
