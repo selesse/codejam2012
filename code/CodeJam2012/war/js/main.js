@@ -1,5 +1,5 @@
 // default refresh rate
-var refresh = 300;
+var refresh = 30;
 var refresh_rate_ms = refresh;
 var yaxis = { };
 
@@ -10,7 +10,7 @@ $(document).ready(function() {
   $("div.modal-body input#data-refresh").val(refresh_rate_ms);
 
   // go swaps the primary visuals, swaps button enabling/disabling and starts
-  // the data minig process
+  // the data mining process
   $("button#go").click(function() {
     // swap the hidden status of graphs & schedule... only at the beginning
     if ($("div#graphs").hasClass("hidden")) {
@@ -34,10 +34,70 @@ $(document).ready(function() {
         },
         success : function (results) {
           console.log("Successfully got report:\n" + JSON.stringify(results));
-          send_data_to_silanis(results);
+          json =
+          {
+            "team" : "Flying monkeys",
+            "destination" : "mcgillcodejam2012@gmail.com",
+            "transactions" : [
+              {
+                "time" : "8004",
+                "type" : "buy",
+                "price" : 120,
+                "manager" : "Manager1",
+                "strategy" : "EMA"
+              },
+              {
+                "time" : "9589",
+                "type" : "sell",
+                "price" : 122,
+                "manager" : "Manager2",
+                "strategy" : "LWMA"
+              },
+              {
+                "time" : "16542",
+                "type" : "buy",
+                "price" : 118,
+                "manager" : "Manager1",
+                "strategy" : "TMA"
+              }
+            ]
+          };
+          update_table(json); // TODO change to results
+          if ($("button#report").html() == "Report") {
+            console.log("sending to silanis");
+            send_data_to_silanis(results);
+          }
+
+          if ($("div#report").hasClass("hidden")) {
+            $("button#report").html("Graphs");
+          } else {
+            $("button#report").html("Report");
+          }
+          $("div#report").toggleClass("hidden");
+          $("div#graphs").toggleClass("hidden");
         }
     } );
   });
+
+  function update_table(json) {
+    $("table#reportTable").find('tbody').html("");
+	  for (var r in json.transactions) {
+		  $("table#reportTable").find('tbody')
+          .append($('<tr>')
+		        .append($('<td>')
+		          .append(json.transactions[r].time)
+		        ).append($('<td>')
+              .append(json.transactions[r].type)
+            ).append($('<td>')
+              .append(json.transactions[r].price)
+            ).append($('<td>')
+              .append(json.transactions[r].manager)
+            ).append($('<td>')
+              .append(json.transactions[r].strategy)
+            )
+          );
+	  }
+  }
 
   function send_data_to_silanis(results) {
     $.ajax( {
@@ -52,11 +112,14 @@ $(document).ready(function() {
           console.log(error);
         },
         successs : function (results) {
-          console.log("Got results!");
-          // TODO, show the ceremony id on the GUI
-          console.log(results);
+          show_ceremony_id(results);
         }
     } );
+  }
+
+  function show_ceremony_id(json) {
+    $("div#ceremony").html("Ceremony Id: " + json.ceremonyId);
+    $("div#ceremony").toggleClass("hidden");
   }
 
   // save variables from graph settings, show a "success" then fade out

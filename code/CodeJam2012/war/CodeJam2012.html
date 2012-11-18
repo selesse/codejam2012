@@ -57,7 +57,7 @@
     <div class="container">
 
       <div style="padding-bottom: 10px" id="settings" class="center">
-        <a href="#settingsModal" role="button" class="btn btn-small" data-toggle="modal">Graph Settings</a>
+        <a href="#settingsModal" role="button" class="btn btn-small btn-inverse" data-toggle="modal">Graph Settings</a>
         <div id="settingsModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="settingsModal" aria-hidden="true">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -123,12 +123,32 @@
             </div>
           </div>
       </div>
+      
+      <div id="report" class="hidden">
+        <div id="ceremony" class="hidden alert alert-info center">
+        </div>
+        <table id="reportTable" class="table table-bordered table-condensed table-striped">
+          <thead>
+            <tr>
+            <td>Time</td>
+            <td>Type</td>
+            <td>Price</td>
+            <td>Manager name</td>
+            <td>Strategy</td>
+            </tr>
+          </thead>
+          <tbody/>
+        </table>
+      </div>
+      
       <div class="controls center">
         <button id="go" class="btn btn-primary btn-large" type="button" title="Begin the application.">Go</button>
         <button id="report" class="btn btn-primary btn-large hidden" type="button" title="Generate a report.">Report</button>
         <a href="/codejam2012/mset?reportFile" id="downloadReport" class="btn btn-primary btn-large hidden" title="Download a local copy of the report.">Save report</a>
-      </div><br/>
-      <div class="center"><small>Team members: Alex Bourgeois, Rathesh Sabapathipillai, Alex Selesse, ... and Patrick Crane?</small></div>
+      </div>
+      <div id="footer" class="center">
+        <small>Team members: Alex Bourgeois, Rathesh Sabapathipillai, Alex Selesse</small>
+      </div>
     </div>
   </body>
 </html>

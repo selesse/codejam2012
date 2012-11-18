@@ -274,6 +274,18 @@ public class StockExchange implements Runnable {
         MSETServlet.time++;
       }
 
+      // Manager 5 and 6 finally go home
+      ((Observable) SMAFast).deleteObserver(managers.get(4));
+      ((Observable) SMASlow).deleteObserver(managers.get(4));
+      ((Observable) LWMAFast).deleteObserver(managers.get(4));
+      ((Observable) LWMASlow).deleteObserver(managers.get(4));
+      managers.get(4).setIdol(true);
+
+      ((Observable) EMAFast).deleteObserver(managers.get(5));
+      ((Observable) EMASlow).deleteObserver(managers.get(5));
+      ((Observable) TMAFast).deleteObserver(managers.get(5));
+      ((Observable) TMASlow).deleteObserver(managers.get(5));
+      managers.get(5).setIdol(true);
       synchronized (MSETServlet.dataDump) {
         MSETServlet.dataDump.finished = true;
       }
