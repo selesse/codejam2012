@@ -10,8 +10,8 @@ package com.rathesh.codejam2012.server.strategies;
 public class EMAStrategy extends AbstractStrategy {
   double alpha;
 
-  public EMAStrategy(int N, boolean isFast) {
-    super(N, isFast);
+  public EMAStrategy(int N, int windowSize, boolean isFast) {
+    super(N, windowSize, isFast);
     alpha = (2 / ((double) N + 1));
   }
 
@@ -20,12 +20,12 @@ public class EMAStrategy extends AbstractStrategy {
     double average;
     if (this.getAverage() == -1) {
       average = price;
-      this.averages.add(price);
+      addToAverages(price);
     }
     else {
       double prevAvg = this.getAverage();
       average = prevAvg + alpha * (price - prevAvg);
-      this.averages.add(average);
+      addToAverages(average);
     }
     this.notifyObservers(average);
     return average;

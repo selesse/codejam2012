@@ -6,6 +6,7 @@ import java.util.Observable;
 
 import org.junit.Test;
 
+import com.rathesh.codejam2012.server.MSETServlet;
 import com.rathesh.codejam2012.server.strategies.*;
 
 public class ManagerTest {
@@ -14,31 +15,31 @@ public class ManagerTest {
   public void test() {
     Manager manager = new Manager("selesse");
     manager.setIdol(false);
-    Observable o = new SMAStrategy(5, false);
+    Observable o = new SMAStrategy(5, MSETServlet.WINDOW_SIZE, false);
     manager.update(o, (double) 5.2);
     assert (manager.smaSlow.get(0) == 5.2);
-    o = new SMAStrategy(5, true);
+    o = new SMAStrategy(5, MSETServlet.WINDOW_SIZE, true);
     manager.update(o, (double) 2.4);
     assert (manager.smaFast.get(0) == 2.4);
 
-    o = new LWMAStrategy(5, false);
+    o = new LWMAStrategy(5, MSETServlet.WINDOW_SIZE, false);
     manager.update(o, (double) 5.2);
     assert (manager.lwmaSlow.get(0) == 5.2);
-    o = new LWMAStrategy(5, true);
+    o = new LWMAStrategy(5, MSETServlet.WINDOW_SIZE, true);
     manager.update(o, (double) 2.4);
     assert (manager.lwmaFast.get(0) == 2.4);
 
-    o = new TMAStrategy(5, false);
+    o = new TMAStrategy(5, MSETServlet.WINDOW_SIZE, false);
     manager.update(o, (double) 5.2);
     assert (manager.tmaSlow.get(0) == 5.2);
-    o = new TMAStrategy(5, true);
+    o = new TMAStrategy(5, MSETServlet.WINDOW_SIZE, true);
     manager.update(o, (double) 2.4);
     assert (manager.tmaFast.get(0) == 2.4);
 
-    o = new EMAStrategy(5, false);
+    o = new EMAStrategy(5, MSETServlet.WINDOW_SIZE, false);
     manager.update(o, (double) 5.2);
     assert (manager.emaSlow.get(0) == 5.2);
-    o = new EMAStrategy(5, true);
+    o = new EMAStrategy(5, MSETServlet.WINDOW_SIZE, true);
     manager.update(o, (double) 2.4);
     assert (manager.emaFast.get(0) == 2.4);
 
@@ -48,8 +49,8 @@ public class ManagerTest {
   public void smaLogicTest() {
     Manager manager = new Manager("selesse");
     manager.setIdol(false);
-    Observable low = new SMAStrategy(5, false);
-    Observable high = new SMAStrategy(7, true);
+    Observable low = new SMAStrategy(5, MSETServlet.WINDOW_SIZE, false);
+    Observable high = new SMAStrategy(7, MSETServlet.WINDOW_SIZE, true);
     manager.update(low, (double) 2);
     manager.update(high, (double) 1);
     manager.update(low, (double) 1);

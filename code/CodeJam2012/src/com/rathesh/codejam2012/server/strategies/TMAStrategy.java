@@ -5,9 +5,9 @@ import java.util.List;
 public class TMAStrategy extends AbstractStrategy {
   protected SMAStrategy smaStrategy;
 
-  public TMAStrategy(int N, boolean isFast) {
-    super(N, isFast);
-    smaStrategy = new SMAStrategy(N, isFast);
+  public TMAStrategy(int N, int windowSize, boolean isFast) {
+    super(N, windowSize, isFast);
+    smaStrategy = new SMAStrategy(N, windowSize, isFast);
   }
 
   @Override
@@ -30,7 +30,7 @@ public class TMAStrategy extends AbstractStrategy {
       triangularAverage = triangularAverage / N;
     }
 
-    this.averages.add(triangularAverage);
+    addToAverages(triangularAverage);
     this.notifyObservers(triangularAverage);
     return this.getAverage();
   }

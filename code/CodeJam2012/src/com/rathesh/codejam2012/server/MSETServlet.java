@@ -26,10 +26,11 @@ public class MSETServlet extends HttpServlet {
   public static PrintWriter outTradeBooking = null;
   public static BufferedReader inTradeBooking = null;
   private static Report report = new Report();
-  private static int time;
+  public static int time;
   public static DataDump dataDump = new DataDump();
   public static final int priceFeedPort = 8211;
   public static final int tradeBookingPort = 8212;
+  public static final int WINDOW_SIZE = 100;
 
   public DataDump getData() {
     return dataDump;
@@ -58,24 +59,21 @@ public class MSETServlet extends HttpServlet {
       out.println(report.toString());
     }
     else if (request.getParameter("data") != null) {
-      out.println(dataDump);
+      synchronized (dataDump) {
+        out.println(dataDump);
+      }
       out.flush();
     }
   }
 
   private void createReportFile(String reportJson) {
     /*
-    try {
-      File file = new File("reportJson " + new Date() + ".json");
-      PrintWriter pw = new PrintWriter(file);
-      pw.println(reportJson);
-      pw.flush();
-      pw.close();
-    }
-    catch (IOException e) {
-
-    }
-    */
+     * try { File file = new File("reportJson " + new Date() + ".json");
+     * PrintWriter pw = new PrintWriter(file); pw.println(reportJson);
+     * pw.flush(); pw.close(); } catch (IOException e) {
+     * 
+     * }
+     */
   }
 
   public static void sendSell(String name, String type) {

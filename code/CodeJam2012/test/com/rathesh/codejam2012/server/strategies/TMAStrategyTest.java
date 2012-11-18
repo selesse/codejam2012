@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.google.common.collect.Lists;
+import com.rathesh.codejam2012.server.MSETServlet;
 
 /**
  * @author Alex Bourgeois
@@ -25,7 +26,7 @@ public class TMAStrategyTest extends StrategyTest {
 
   @Override
   protected void setupStrategy(int N, boolean flag) {
-    strat = new TMAStrategy(N, flag);
+    strat = new TMAStrategy(N, MSETServlet.WINDOW_SIZE, flag);
   }
 
 }

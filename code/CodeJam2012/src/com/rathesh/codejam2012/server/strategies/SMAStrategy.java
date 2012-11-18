@@ -9,8 +9,8 @@ package com.rathesh.codejam2012.server.strategies;
  */
 public class SMAStrategy extends AbstractStrategy {
 
-  public SMAStrategy(int N, boolean isFast) {
-    super(N, isFast);
+  public SMAStrategy(int N, int windowSize, boolean isFast) {
+    super(N, windowSize, isFast);
   }
 
   @Override
@@ -37,7 +37,7 @@ public class SMAStrategy extends AbstractStrategy {
     }
 
     // Update averages
-    this.averages.add(SMAt);
+    addToAverages(SMAt);
     this.notifyObservers(SMAt);
     return SMAt;
   }

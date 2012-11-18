@@ -7,13 +7,14 @@ import com.google.common.collect.*;
 
 public abstract class AbstractStrategy extends Observable implements Strategy   {
 
-  protected int N;
+  protected final int N, windowSize;
   protected Queue<Double> prices;
   protected List<Double> averages;
   protected boolean flag;
 
-  public AbstractStrategy(int N, boolean isFast) {
+  public AbstractStrategy(int N, int windowSize, boolean isFast) {
     this.N = N;
+    this.windowSize = windowSize;
     this.flag = isFast;
     prices = Queues.newArrayBlockingQueue(N);
     averages = Lists.newArrayList();
@@ -30,6 +31,13 @@ public abstract class AbstractStrategy extends Observable implements Strategy   
   @Override
   public List<Double> getAverages() {
     return this.averages;
+  }
+  
+  public void addToAverages(double d) {
+    if (this.averages.size() >= windowSize ) {
+      this.averages.remove(0);
+    }
+    this.averages.add(d);
   }
   
   @Override

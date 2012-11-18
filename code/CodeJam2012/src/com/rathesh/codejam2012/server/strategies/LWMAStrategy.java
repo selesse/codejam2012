@@ -2,8 +2,8 @@ package com.rathesh.codejam2012.server.strategies;
 
 public class LWMAStrategy extends AbstractStrategy {
 
-  public LWMAStrategy(int N, boolean isFast) {
-    super(N, isFast);
+  public LWMAStrategy(int N, int windowSize, boolean isFast) {
+    super(N, windowSize, isFast);
   }
 
   @Override
@@ -19,7 +19,7 @@ public class LWMAStrategy extends AbstractStrategy {
       linearAverage += d * i;
       count+= i++;
     }
-    this.averages.add(linearAverage / count);
+    addToAverages(linearAverage / count);
     this.notifyObservers(linearAverage / count);
     return this.getAverage();
   }

@@ -19,30 +19,31 @@ import com.rathesh.codejam2012.server.strategies.TMAStrategy;
 
 /**
  * @author Alex Bourgeois
- *
+ * 
  */
 public class StockExchange implements Runnable {
 
   @Override
   public void run() {
-    startStockExchange();    
+    startStockExchange();
   }
 
   private void startStockExchange() {
     Socket priceSocket = null;
     PrintWriter out = null;
     BufferedReader in = null;
+    DataDump dataDump = new DataDump();
 
     // 0. Create strategies and managers
     int slowN = 20, fastN = 5;
-    Strategy SMASlow = new SMAStrategy(slowN, false);
-    Strategy SMAFast = new SMAStrategy(fastN, true);
-    Strategy LWMASlow = new LWMAStrategy(slowN, false);
-    Strategy LWMAFast = new LWMAStrategy(fastN, true);
-    Strategy EMASlow = new EMAStrategy(slowN, false);
-    Strategy EMAFast = new EMAStrategy(fastN, true);
-    Strategy TMASlow = new TMAStrategy(slowN, false);
-    Strategy TMAFast = new TMAStrategy(fastN, true);
+    Strategy SMASlow = new SMAStrategy(slowN, MSETServlet.WINDOW_SIZE, false);
+    Strategy SMAFast = new SMAStrategy(fastN, MSETServlet.WINDOW_SIZE, true);
+    Strategy LWMASlow = new LWMAStrategy(slowN, MSETServlet.WINDOW_SIZE, false);
+    Strategy LWMAFast = new LWMAStrategy(fastN, MSETServlet.WINDOW_SIZE, true);
+    Strategy EMASlow = new EMAStrategy(slowN, MSETServlet.WINDOW_SIZE, false);
+    Strategy EMAFast = new EMAStrategy(fastN, MSETServlet.WINDOW_SIZE, true);
+    Strategy TMASlow = new TMAStrategy(slowN, MSETServlet.WINDOW_SIZE, false);
+    Strategy TMAFast = new TMAStrategy(fastN, MSETServlet.WINDOW_SIZE, true);
 
     try {
       // Set sockets
@@ -52,9 +53,10 @@ public class StockExchange implements Runnable {
       // Get streams
       out = new PrintWriter(priceSocket.getOutputStream(), true);
       in = new BufferedReader(new InputStreamReader(priceSocket.getInputStream()));
-      MSETServlet.outTradeBooking = new PrintWriter(MSETServlet.tradeBookingSocket.getOutputStream(), true);
-      MSETServlet.inTradeBooking = new BufferedReader(
-          new InputStreamReader(MSETServlet.tradeBookingSocket.getInputStream()));
+      MSETServlet.outTradeBooking = new PrintWriter(
+          MSETServlet.tradeBookingSocket.getOutputStream(), true);
+      MSETServlet.inTradeBooking = new BufferedReader(new InputStreamReader(
+          MSETServlet.tradeBookingSocket.getInputStream()));
 
       // 2. Start price feed with 'H'
       out.println('H');
@@ -71,6 +73,8 @@ public class StockExchange implements Runnable {
           c = (char) in.read();
         }
         double price = Double.parseDouble(token);
+
+        // TODO take care of WINDOW_SIZE
         prices.add(price);
         // 4. Update strategies which will update managers, Managers will call
         // sendBuy or Sell
@@ -87,15 +91,16 @@ public class StockExchange implements Runnable {
         // Ignore the delimiter
         in.read();
 
-        MSETServlet.dataDump.setPrices(prices);
-        MSETServlet.dataDump.setSmaSlow(SMASlow.getAverages());
-        MSETServlet.dataDump.setSmaFast(SMAFast.getAverages());
-        MSETServlet.dataDump.setLwmaSlow(LWMASlow.getAverages());
-        MSETServlet.dataDump.setLwmaFast(LWMAFast.getAverages());
-        MSETServlet.dataDump.setEmaSlow(EMASlow.getAverages());
-        MSETServlet.dataDump.setEmaFast(EMAFast.getAverages());
-        MSETServlet.dataDump.setTmaSlow(TMASlow.getAverages());
-        MSETServlet.dataDump.setTmaFast(TMAFast.getAverages());
+        dataDump.setPrices(prices);
+        dataDump.setSmaSlow(SMASlow.getAverages());
+        dataDump.setSmaFast(SMAFast.getAverages());
+        dataDump.setLwmaSlow(LWMASlow.getAverages());
+        dataDump.setLwmaFast(LWMAFast.getAverages());
+        dataDump.setEmaSlow(EMASlow.getAverages());
+        dataDump.setEmaFast(EMAFast.getAverages());
+        dataDump.setTmaSlow(TMASlow.getAverages());
+        dataDump.setTmaFast(TMAFast.getAverages());
+        MSETServlet.time++;
       }
     }
     catch (IOException e) {
