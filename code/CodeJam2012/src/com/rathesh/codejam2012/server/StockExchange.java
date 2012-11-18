@@ -32,7 +32,6 @@ public class StockExchange implements Runnable {
     Socket priceSocket = null;
     PrintWriter out = null;
     BufferedReader in = null;
-    DataDump dataDump = new DataDump();
 
     // 0. Create strategies and managers
     int slowN = 20, fastN = 5;
@@ -91,15 +90,15 @@ public class StockExchange implements Runnable {
         // Ignore the delimiter
         in.read();
 
-        dataDump.setPrices(prices);
-        dataDump.setSmaSlow(SMASlow.getAverages());
-        dataDump.setSmaFast(SMAFast.getAverages());
-        dataDump.setLwmaSlow(LWMASlow.getAverages());
-        dataDump.setLwmaFast(LWMAFast.getAverages());
-        dataDump.setEmaSlow(EMASlow.getAverages());
-        dataDump.setEmaFast(EMAFast.getAverages());
-        dataDump.setTmaSlow(TMASlow.getAverages());
-        dataDump.setTmaFast(TMAFast.getAverages());
+        MSETServlet.dataDump.setPrices(prices);
+        MSETServlet.dataDump.setSmaSlow(SMASlow.getAverages());
+        MSETServlet.dataDump.setSmaFast(SMAFast.getAverages());
+        MSETServlet.dataDump.setLwmaSlow(LWMASlow.getAverages());
+        MSETServlet.dataDump.setLwmaFast(LWMAFast.getAverages());
+        MSETServlet.dataDump.setEmaSlow(EMASlow.getAverages());
+        MSETServlet.dataDump.setEmaFast(EMAFast.getAverages());
+        MSETServlet.dataDump.setTmaSlow(TMASlow.getAverages());
+        MSETServlet.dataDump.setTmaFast(TMAFast.getAverages());
         MSETServlet.time++;
       }
     }
