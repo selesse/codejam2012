@@ -5,7 +5,7 @@
 }
 
 div.graph {
-  min-height: 225px;
+  min-height: 220px;
   min-width: 300px;
   margin: 20px 10px;
 }
@@ -15,10 +15,10 @@ div.graph {
 }
 
 div#graphs {
-  min-height: 600px;
+  min-height: 550px;
   min-width: 1200px;
 }
 
 div#schedule {
-  min-height: 600px;
+  min-height: 550px;
 }

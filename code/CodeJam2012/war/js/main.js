@@ -18,10 +18,6 @@ $(document).ready(function() {
 
       $("button#go").toggleClass("disabled");
       $("button#report").toggleClass("disabled");
-
-      $("button#report").click(function() {
-        alert("Shiver me timber!");
-      });
     }
     start_data_mining();
   });
@@ -206,3 +202,4 @@ function show_manager_schedule(num_managers, schedule) {
          { label: "Break", data: breaks } ], options);
 
 }
+

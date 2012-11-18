@@ -30,14 +30,6 @@ public class MSETServlet extends HttpServlet {
   public static final int tradeBookingPort = 8212;
   public static final int WINDOW_SIZE = 100;
 
-  public DataDump getData() {
-    return dataDump;
-  }
-
-  public static String headWithTitle(String title) {
-    return (DOCTYPE + "\n" + "<HTML>\n" + "<HEAD><TITLE>" + title + "</TITLE></HEAD>\n");
-  }
-
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
