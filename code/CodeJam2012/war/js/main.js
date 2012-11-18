@@ -10,7 +10,7 @@ $(document).ready(function() {
   $("div.modal-body input#data-refresh").val(refresh_rate_ms);
 
   // go swaps the primary visuals, swaps button enabling/disabling and starts
-  // the data minig process
+  // the data mining process
   $("button#go").click(function() {
     // swap the hidden status of graphs & schedule... only at the beginning
     if ($("div#graphs").hasClass("hidden")) {
