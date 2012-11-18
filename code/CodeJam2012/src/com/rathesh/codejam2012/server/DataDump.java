@@ -37,11 +37,10 @@ public class DataDump {
   }
 
   public void setSmaSlow(List<Double> smaSlows) {
-    smaSlow = Lists.newArrayList();
-
+ 
     smaSlow.addAll(smaSlows);
 
-    smaFast = Lists.newArrayList();
+
   }
 
   public void setSmaFast(List<Double> smaFasts) {
@@ -49,7 +48,7 @@ public class DataDump {
   }
 
   public void setLwmaSlow(List<Double> lwmaSlows) {
-    lwmaSlow = Lists.newArrayList();
+ 
 
     lwmaSlow.addAll(lwmaSlows);
   }
@@ -90,7 +89,7 @@ public class DataDump {
     json = json +"\"tmaSlow\":"+gson.toJson(tmaSlow)+",";
     json = json +"\"tmaFast\":"+gson.toJson(tmaFast)+"}";
     
-    
+    return json;
 
   }
 }
