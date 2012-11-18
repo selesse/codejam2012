@@ -66,11 +66,13 @@
           <div class="modal-body">
             Maximum y-axis value:<br/><input class="center" type="text" id="y-max"/><br/>
             Minimum y-axis value:<br/><input class="center" type="text" id="y-min"/><br/>
-            Data-refresh interval (ms)<br/><input class="center" type="text" id="data-refresh" value="500"><br/>
-        </div>
+            Data-refresh interval (ms)<br/><input class="center" type="text" id="data-refresh"><br/>
+          </div>
           <div class="modal-footer">
+            <div style="display: none;" id="savealert" class="btn btn-success center">
+            </div>
             <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-            <button class="btn btn-primary">Save changes</button>
+            <button class="btn btn-primary" id="saveModal">Save changes</button>
           </div>
         </div>
       </div>

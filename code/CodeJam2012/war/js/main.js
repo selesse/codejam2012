@@ -1,6 +1,15 @@
+// default refresh rate
+var refresh = 300;
+var refresh_rate_ms = refresh;
+var yaxis = { };
+
 $(document).ready(function() {
   show_manager_schedule();
 
+  $("div.modal-body input#data-refresh").val(refresh_rate_ms);
+
+  // go swaps the primary visuals, swaps button enabling/disabling and starts
+  // the data minig process
   $("button#go").click(function() {
     // swap the hidden status of graphs & schedule... only at the beginning
     if ($("div#graphs").hasClass("hidden")) {
@@ -9,12 +18,20 @@ $(document).ready(function() {
 
       $("button#go").toggleClass("disabled");
       $("button#report").toggleClass("disabled");
-
-      $("button#report").click(function() {
-        alert("Shiver me timber!");
-      });
     }
     start_data_mining();
+  });
+
+  $("button#saveModal").click(function() {
+    refresh_rate_ms = $("div.modal-body input#data-refresh").val() || refresh;
+    ymax = $("div.modal-body input#y-max").val() || null;
+    ymin = $("div.modal-body input#y-min").val() || null;
+    yaxis = { "max" : ymax, "min" : ymin };
+    $("div#savealert").show();
+    $("div#savealert").text("Successfully saved!");
+    setTimeout(function() {
+      $("div#savealert").fadeOut('slow');
+    }, 2000);
   });
 });
 
@@ -24,7 +41,7 @@ function start_data_mining() {
       url : "codejam2012/mset?go",
       type : 'GET',
       error : function (error) {
-        console.log("ERROR GETTING GO");
+        console.log("Error accessing mset?go!");
         console.log(error);
       },
       success : function (results) {
@@ -39,22 +56,20 @@ function update_data() {
       url : "codejam2012/mset?data",
       type : 'GET',
       error : function (error) {
-        console.log("ERROR GETTING DATER");
+        console.log("Error accessing mset?data");
         console.log(error)
       },
       success : function (results) {
-        console.log("SUXXESS!");
-        console.log(results);
         var price = results.price;
         plot_graph("div#sma-graph", price, results.smaSlow, results.smaFast);
         plot_graph("div#lwma-graph", price, results.lwmaSlow, results.lwmaFast);
         plot_graph("div#ema-graph", price, results.emaSlow, results.emaFast);
         plot_graph("div#tma-graph", price, results.tmaSlow, results.tmaFast);
         if (results.finished == true) {
-          console.log("finished early");
+          console.log("Received 'finish' signal.");
           return;
         }
-        setTimeout(update_data, 10);
+        setTimeout(update_data, refresh_rate_ms);
       }
     }
   );
@@ -63,9 +78,9 @@ function update_data() {
 function plot_graph(id, price, slow, fast) {
   var graph_name = id.substring(id.indexOf("#") + 1, id.indexOf("-")).toUpperCase();
 
-  price = price || [ [0, 0], [2, 1] ];
-  slow = slow || [ [0, 0], [1, 0.25], [2, 1] ];
-  fast = fast || [ [0, 0], [1, 0.75], [2, 1] ];
+  price = price || [];
+  slow = slow || [];
+  fast = fast || [];
 
   var labels = [
       { label : "Price", data: price },
@@ -73,13 +88,16 @@ function plot_graph(id, price, slow, fast) {
       { label : graph_name + " [20]", data: slow },
     ];
 
-  var options = { };
+  var options = { "yaxis" : yaxis };
 
   // clear the HTML otherwise continually calling $.plot extends height
   $(id).html("");
   $.plot($(id), labels, options);
 }
 
+// get work times based on input time... **THIS ASSUMES FULL DAY**
+// namely, if you input 9 AM, this function will return the following:
+// [ [9,0], [11,0], [11,30], [13,30] ]
 function get_work_times(time, half) {
   var times = [];
   half = half || 0;
@@ -98,6 +116,9 @@ function get_work_times(time, half) {
   return times;
 }
 
+// get break time based on when you start...
+// namely, if you input 9 AM, this function will return the following:
+// [ [11,00] ]
 function get_break_time(time, half) {
   var times = [];
   if (half == 30) {
@@ -181,3 +202,4 @@ function show_manager_schedule(num_managers, schedule) {
          { label: "Break", data: breaks } ], options);
 
 }
+

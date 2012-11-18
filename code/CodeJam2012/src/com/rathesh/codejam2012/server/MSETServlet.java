@@ -32,14 +32,6 @@ public class MSETServlet extends HttpServlet {
   // Determines how many points to keep in server memory
   public static final int WINDOW_SIZE = 32400; // Set to 32400 to turn off the effects
 
-  public DataDump getData() {
-    return dataDump;
-  }
-
-  public static String headWithTitle(String title) {
-    return (DOCTYPE + "\n" + "<HTML>\n" + "<HEAD><TITLE>" + title + "</TITLE></HEAD>\n");
-  }
-
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
