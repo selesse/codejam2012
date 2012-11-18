@@ -3,9 +3,9 @@ package com.rathesh.codejam2012.server;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,12 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.appengine.api.ThreadManager;
-import com.ibm.icu.util.Calendar;
-import com.rathesh.codejam2012.server.strategies.EMAStrategy;
-import com.rathesh.codejam2012.server.strategies.LWMAStrategy;
-import com.rathesh.codejam2012.server.strategies.SMAStrategy;
-import com.rathesh.codejam2012.server.strategies.Strategy;
-import com.rathesh.codejam2012.server.strategies.TMAStrategy;
 
 /**
  * The server side implementation of the RPC service.
@@ -35,7 +29,7 @@ public class MSETServlet extends HttpServlet {
   private static int time;
   public static DataDump dataDump = new DataDump();
   public static final int priceFeedPort = 8211;
-  public static final int tradeBookingPort = 8311;
+  public static final int tradeBookingPort = 8212;
 
   public DataDump getData() {
     return dataDump;
@@ -70,8 +64,9 @@ public class MSETServlet extends HttpServlet {
   }
 
   private void createReportFile(String reportJson) {
+    /*
     try {
-      File file = new File("reportJson " + Calendar.getInstance() + ".json");
+      File file = new File("reportJson " + new Date() + ".json");
       PrintWriter pw = new PrintWriter(file);
       pw.println(reportJson);
       pw.flush();
@@ -80,6 +75,7 @@ public class MSETServlet extends HttpServlet {
     catch (IOException e) {
 
     }
+    */
   }
 
   public static void sendSell(String name, String type) {
