@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.rathesh.codejam2012.server.strategies.SMAStrategyTest;
 
 public class DataDump {
   DataList price;
@@ -75,16 +76,26 @@ public class DataDump {
     GsonBuilder builder = new GsonBuilder();
     builder.registerTypeAdapter(DataList.class, new GraphAdapter());
     Gson gson = builder.create();
+    String priceJson = gson.toJson(price);
+    String smaSlowJson = gson.toJson(smaSlow);
+    String smaFastJson = gson.toJson(smaFast);
+    String lwmaSlowJson = gson.toJson(lwmaSlow);
+    String lwmaFastJson = gson.toJson(lwmaFast);
+    String emaSlowJson = gson.toJson(emaSlow);
+    String emaFastJson = gson.toJson(emaFast);
+    String tmaSlowJson = gson.toJson(tmaSlow);
+    String tmaFastJson = gson.toJson(tmaFast);
+
     String json = "{";
-    json = json + "\"price\":" + gson.toJson(price) + ",";
-    json = json + "\"smaSlow\":" + gson.toJson(smaSlow) + ",";
-    json = json + "\"smaFast\":" + gson.toJson(smaFast) + ",";
-    json = json + "\"lwmaSlow\":" + gson.toJson(lwmaSlow) + ",";
-    json = json + "\"lwmaFast\":" + gson.toJson(lwmaFast) + ",";
-    json = json + "\"emaSlow\":" + gson.toJson(emaSlow) + ",";
-    json = json + "\"emaFast\":" + gson.toJson(emaFast) + ",";
-    json = json + "\"tmaSlow\":" + gson.toJson(tmaSlow) + ",";
-    json = json + "\"tmaFast\":" + gson.toJson(tmaFast) + "}";
+    json = json + "\"price\":" + priceJson.substring(1, priceJson.length() - 1) + ",";
+    json = json + "\"smaSlow\":" + smaSlowJson.substring(1, smaSlowJson.length() - 1) + ",";
+    json = json + "\"smaFast\":" + smaFastJson.substring(1, smaFastJson.length() - 1) + ",";
+    json = json + "\"lwmaSlow\":" + lwmaSlowJson.substring(1, lwmaSlowJson.length() - 1) + ",";
+    json = json + "\"lwmaFast\":" + lwmaFastJson.substring(1, lwmaFastJson.length() - 1) + ",";
+    json = json + "\"emaSlow\":" + emaSlowJson.substring(1, emaSlowJson.length() - 1) + ",";
+    json = json + "\"emaFast\":" + emaFastJson.substring(1, emaFastJson.length() - 1) + ",";
+    json = json + "\"tmaSlow\":" + tmaSlowJson.substring(1, tmaSlowJson.length() - 1) + ",";
+    json = json + "\"tmaFast\":" + tmaFastJson.substring(1, tmaFastJson.length() - 1) + "}";
 
     return json;
 
