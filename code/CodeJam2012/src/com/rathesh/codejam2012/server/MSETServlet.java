@@ -48,6 +48,7 @@ public class MSETServlet extends HttpServlet {
     PrintWriter out = response.getWriter();
     if (request.getParameter("go") != null) {
       dataDump = new DataDump();
+      time = 0;
       Thread t = ThreadManager.createBackgroundThread(new StockExchange());
       t.start();
     }

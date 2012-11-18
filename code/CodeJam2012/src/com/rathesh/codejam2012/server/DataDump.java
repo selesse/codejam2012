@@ -7,6 +7,8 @@ import com.google.gson.GsonBuilder;
 import com.rathesh.codejam2012.server.strategies.SMAStrategyTest;
 
 public class DataDump {
+  
+  
   DataList price;
   DataList smaSlow;
   DataList smaFast;
@@ -23,18 +25,29 @@ public class DataDump {
   boolean finished;
 
   public DataDump() {
-    price = new DataList();
-    smaSlow = new DataList();
-    smaFast = new DataList();
-    lwmaSlow = new DataList();
-    lwmaFast = new DataList();
-    emaSlow = new DataList();
-    emaFast = new DataList();
-    tmaSlow = new DataList();
-    tmaFast = new DataList();
+    price = new DataList(0);
+    smaSlow = new DataList(0);
+    smaFast = new DataList(0);
+    lwmaSlow = new DataList(0);
+    lwmaFast = new DataList(0);
+    emaSlow = new DataList(0);
+    emaFast = new DataList(0);
+    tmaSlow = new DataList(0);
+    tmaFast = new DataList(0);
     finished = false;
   }
-  
+  public void setTime(int time){
+    price.setTime(time);
+    smaSlow.setTime(time);
+    smaFast.setTime(time);
+    lwmaSlow.setTime(time);
+    lwmaFast.setTime(time);
+    emaSlow.setTime(time);
+    emaFast.setTime(time);
+    tmaSlow.setTime(time);
+    tmaFast.setTime(time);
+    
+  }
   public void setFinished(boolean finished) {
     this.finished = true;
   }

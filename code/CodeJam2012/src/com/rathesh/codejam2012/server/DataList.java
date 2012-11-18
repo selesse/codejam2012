@@ -5,10 +5,23 @@ import java.util.List;
 import com.google.common.collect.Lists;
 
 public class DataList {
-  List<Double> data;
+  protected List<Double> data;
+  protected int time;
 
   public DataList() {
     data = Lists.newArrayList();
+  }
+
+  public DataList(int time) {
+    data = Lists.newArrayList();
+    this.time = time;
+  }
+
+  public void setTime(int time) {
+    this.time = time;
+  }
+  public int getTime(){
+    return this.time;
   }
 
   public void add(double value) {

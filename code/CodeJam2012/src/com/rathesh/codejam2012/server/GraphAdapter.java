@@ -23,9 +23,15 @@ public class GraphAdapter extends TypeAdapter<DataList> {
   @Override
   public void write(JsonWriter out, DataList data) throws IOException {
     List<Double> value = data.getData();
+    int time = data.getTime();
+    int startTime = time -value.size();
+    if(startTime<0){
+      startTime = 0;
+    }
+    
     String s = "[";
-    for (int i = 0; i < value.size(); i++) {
-      s = s + "[" + (i + 1) + ".0," + value.get(i) + "]";
+    for (int i = 0; i < value.size(); i++,startTime++) {
+      s = s + "[" + (startTime) + ".0," + value.get(i) + "]";
       if (i != value.size() - 1) {
         s = s + ",";
       }
