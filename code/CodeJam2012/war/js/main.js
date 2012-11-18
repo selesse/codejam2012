@@ -133,32 +133,35 @@ function show_manager_schedule(num_managers, schedule) {
   m1_break = get_break_time(13, 30);
 
   var schedule = schedule || [
-    [Date.UTC(2012, 0, 1, 15, 30), 8, Date.UTC(2012, 0, 1, 16, 00), "Working"],
+    [Date.UTC(2012, 0, 1, 15, 30), 8, Date.UTC(2012, 0, 1, 17, 30), "Working"],
+    [Date.UTC(2012, 0, 1, 15, 30), 7, Date.UTC(2012, 0, 1, 17, 30), "Working"],
 
-    [Date.UTC(2012, 0, 1, 15, 30), 7, Date.UTC(2012, 0, 1, 16, 00), "Working"],
+    [Date.UTC(2012, 0, 1, m6_times[0][0], m6_times[0][1]), 1, Date.UTC(2012, 0, 1, m6_times[1][0], m6_times[1][1]), "Working"],
+    [Date.UTC(2012, 0, 1, m6_times[2][0], m6_times[2][1]), 1, Date.UTC(2012, 0, 1, m6_times[3][0], m6_times[3][1]), "Working"],
 
-    [Date.UTC(2012, 0, 1, m6_times[0][0], m6_times[0][1]), 6, Date.UTC(2012, 0, 1, m6_times[1][0], m6_times[1][1]), "Working"],
-    [Date.UTC(2012, 0, 1, m6_times[2][0], m6_times[2][1]), 6, Date.UTC(2012, 0, 1, m6_times[3][0], m6_times[3][1]), "Working"],
+    [Date.UTC(2012, 0, 1, m5_times[0][0], m5_times[0][1]), 2, Date.UTC(2012, 0, 1, m5_times[1][0], m5_times[1][1]), "Working"],
+    [Date.UTC(2012, 0, 1, m5_times[2][0], m5_times[2][1]), 2, Date.UTC(2012, 0, 1, m5_times[3][0], m5_times[3][1]), "Working"],
 
-    [Date.UTC(2012, 0, 1, m5_times[0][0], m5_times[0][1]), 5, Date.UTC(2012, 0, 1, m5_times[1][0], m5_times[1][1]), "Working"],
-    [Date.UTC(2012, 0, 1, m5_times[2][0], m5_times[2][1]), 5, Date.UTC(2012, 0, 1, m5_times[3][0], m5_times[3][1]), "Working"],
+    [Date.UTC(2012, 0, 1, 11, 0), 4, Date.UTC(2012, 0, 1, 13), "Working"],
 
-    [Date.UTC(2012, 0, 1, 11, 0), 4, Date.UTC(2012, 0, 1, 11, 30), "Working"],
+    [Date.UTC(2012, 0, 1, 11, 0), 3, Date.UTC(2012, 0, 1, 13), "Working"],
 
-    [Date.UTC(2012, 0, 1, 11, 0), 3, Date.UTC(2012, 0, 1, 11, 30), "Working"],
+    [Date.UTC(2012, 0, 1, m2_times[0][0], m2_times[0][1]), 5, Date.UTC(2012, 0, 1, m2_times[1][0], m2_times[1][1]), "Working"],
+    [Date.UTC(2012, 0, 1, m2_times[2][0], m2_times[2][1]), 5, Date.UTC(2012, 0, 1, m2_times[3][0], m2_times[3][1]), "Working"],
 
-    [Date.UTC(2012, 0, 1, m2_times[0][0], m2_times[0][1]), 2, Date.UTC(2012, 0, 1, m2_times[1][0], m2_times[1][1]), "Working"],
-    [Date.UTC(2012, 0, 1, m2_times[2][0], m2_times[2][1]), 2, Date.UTC(2012, 0, 1, m2_times[3][0], m2_times[3][1]), "Working"],
-
-    [Date.UTC(2012, 0, 1, m1_times[0][0], m1_times[0][1]), 1, Date.UTC(2012, 0, 1, m1_times[1][0], m1_times[1][1]), "Working"],
-    [Date.UTC(2012, 0, 1, m1_times[1][0], m1_times[1][1]), 1, Date.UTC(2012, 0, 1, m1_times[3][0], m1_times[3][1]), "Working"],
+    [Date.UTC(2012, 0, 1, m1_times[0][0], m1_times[0][1]), 6, Date.UTC(2012, 0, 1, m1_times[1][0], m1_times[1][1]), "Working"],
+    [Date.UTC(2012, 0, 1, m1_times[1][0], m1_times[1][1]), 6, Date.UTC(2012, 0, 1, m1_times[3][0], m1_times[3][1]), "Working"],
   ];
 
   var breaks = [
-    [Date.UTC(2012, 0, 1, m6_break[0][0], m6_break[0][1]), 6, Date.UTC(2012, 0, 1, m6_break[1][0], m6_break[1][1]), "Break"],
-    [Date.UTC(2012, 0, 1, m5_break[0][0], m5_break[0][1]), 5, Date.UTC(2012, 0, 1, m5_break[1][0], m5_break[1][1]), "Break"],
-    [Date.UTC(2012, 0, 1, m2_break[0][0], m2_break[0][1]), 2, Date.UTC(2012, 0, 1, m2_break[1][0], m2_break[1][1]), "Break"],
-    [Date.UTC(2012, 0, 1, m1_break[0][0], m1_break[0][1]), 1, Date.UTC(2012, 0, 1, m1_break[1][0], m1_break[1][1]), "Break"],
+    [Date.UTC(2012, 0, 1, m6_break[0][0], m6_break[0][1]), 1, Date.UTC(2012, 0, 1, m6_break[1][0], m6_break[1][1]), "Break"],
+    [Date.UTC(2012, 0, 1, m5_break[0][0], m5_break[0][1]), 2, Date.UTC(2012, 0, 1, m5_break[1][0], m5_break[1][1]), "Break"],
+    [Date.UTC(2012, 0, 1, 13), 3, Date.UTC(2012, 0, 1, 13, 30), "Break"],
+    [Date.UTC(2012, 0, 1, 13), 4, Date.UTC(2012, 0, 1, 13, 30), "Break"],
+    [Date.UTC(2012, 0, 1, m2_break[0][0], m2_break[0][1]), 5, Date.UTC(2012, 0, 1, m2_break[1][0], m2_break[1][1]), "Break"],
+    [Date.UTC(2012, 0, 1, m1_break[0][0], m1_break[0][1]), 6, Date.UTC(2012, 0, 1, m1_break[1][0], m1_break[1][1]), "Break"],
+    [Date.UTC(2012, 0, 1, 17, 30), 7, Date.UTC(2012, 0, 1, 18), "Break"],
+    [Date.UTC(2012, 0, 1, 17, 30), 8, Date.UTC(2012, 0, 1, 18), "Break"],
   ];
 
   var managers = [];
