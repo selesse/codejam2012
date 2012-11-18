@@ -24,11 +24,14 @@ public class MSETServlet extends HttpServlet {
   public static PrintWriter outTradeBooking = null;
   public static BufferedReader inTradeBooking = null;
   private static Report report = new Report();
+  // Time in seconds
   public static int time;
   public static DataDump dataDump;
   public static final int priceFeedPort = 8211;
   public static final int tradeBookingPort = 8212;
-  public static final int WINDOW_SIZE = 100;
+  // Determines how many points to keep in server memory
+  public static final int WINDOW_SIZE = 32400; // Set to 32400 to turn off the
+                                               // effects
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -64,43 +67,60 @@ public class MSETServlet extends HttpServlet {
     out.close();
   }
 
-  public static void sendSell(String name, String type) {
-    // TODO in here we need to
+  public static boolean sendSell(String name, String type) {
     // Send 'S' through trade booking socket
     // The exchange responds with a price, keep note of it for silanis :)
     outTradeBooking.println('S');
     outTradeBooking.flush();
 
-    String line;
+    StringBuilder line = new StringBuilder();
     try {
-      line = inTradeBooking.readLine();
-      double price = Double.parseDouble(line);
+      do {
+        char c = (char) inTradeBooking.read();
+        if (c == 'E') {
+          return false;
+        }
+        line.append(c);
+      }
+      while (inTradeBooking.ready());
+      double price = Double.parseDouble(line.toString());
       Transaction transaction = new Transaction(time, "sell", price, name, type);
       report.add(transaction);
+      
+      return true;
     }
     catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
+      return false;
     }
 
   }
 
-  public static void sendBuy(String name, String type) {
-    // TODO in here we need to
+  public static boolean sendBuy(String name, String type) {
     // Send 'B' through trade booking socket
     // The exchange responds with a price, keep note of it for silanis :)
     outTradeBooking.println('B');
     outTradeBooking.flush();
-    String line;
+    StringBuilder line = new StringBuilder();
     try {
-      line = inTradeBooking.readLine();
-      double price = Double.parseDouble(line);
+      do {
+        char c = (char) inTradeBooking.read();
+        if (c == 'E') {
+          return false;
+        }
+        line.append(c);
+      }
+      while (inTradeBooking.ready());
+      double price = Double.parseDouble(line.toString());
       Transaction transaction = new Transaction(time, "buy", price, name, type);
       report.add(transaction);
+      return true;
     }
     catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
+      return false;
     }
   }
 
