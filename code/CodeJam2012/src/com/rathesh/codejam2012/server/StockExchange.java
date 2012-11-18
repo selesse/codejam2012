@@ -260,6 +260,7 @@ public class StockExchange implements Runnable {
         token = "";
 
         synchronized (MSETServlet.dataDump) {
+          MSETServlet.dataDump.setTime(MSETServlet.time);
           MSETServlet.dataDump.setPrices(prices);
           MSETServlet.dataDump.setSmaSlow(SMASlow.getAverages());
           MSETServlet.dataDump.setSmaFast(SMAFast.getAverages());
