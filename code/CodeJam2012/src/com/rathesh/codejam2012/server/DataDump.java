@@ -36,6 +36,7 @@ public class DataDump {
   }
   
   public void setPrices(List<Double> prices) {
+    price = Lists.newArrayList();
     for (int i = 0; i < prices.size(); i++) {
       double[] point = new double[2];
       point[0] = i + 1;
@@ -49,6 +50,7 @@ public class DataDump {
   }
 
   public void setSmaSlow(List<Double> smaSlows) {
+    smaSlow = Lists.newArrayList();
     for (int i = 0; i < smaSlows.size(); i++) {
       double[] point = new double[2];
       point[0] = i + 1;
@@ -62,6 +64,7 @@ public class DataDump {
   }
 
   public void setSmaFast(List<Double> smaFasts) {
+    smaFast = Lists.newArrayList();
     for (int i = 0; i < smaFasts.size(); i++) {
       double[] point = new double[2];
       point[0] = i + 1;
@@ -75,6 +78,7 @@ public class DataDump {
   }
 
   public void setLwmaSlow(List<Double> lwmaSlows) {
+    lwmaSlow = Lists.newArrayList();
     for (int i = 0; i < lwmaSlows.size(); i++) {
       double[] point = new double[2];
       point[0] = i + 1;
@@ -88,6 +92,7 @@ public class DataDump {
   }
 
   public void setLwmaFast(List<Double> lwmaFasts) {
+    lwmaFast = Lists.newArrayList();
     for (int i = 0; i < lwmaFasts.size(); i++) {
       double[] point = new double[2];
       point[0] = i + 1;
@@ -101,6 +106,7 @@ public class DataDump {
   }
 
   public void setEmaSlow(List<Double> emaSlows) {
+    emaSlow = Lists.newArrayList();
     for (int i = 0; i < emaSlows.size(); i++) {
       double[] point = new double[2];
       point[0] = i + 1;
@@ -114,6 +120,7 @@ public class DataDump {
   }
 
   public void setEmaFast(List<Double> emaFasts) {
+    emaFast = Lists.newArrayList();
     for (int i = 0; i < emaFasts.size(); i++) {
       double[] point = new double[2];
       point[0] = i + 1;
@@ -127,6 +134,7 @@ public class DataDump {
   }
 
   public void setTmaSlow(List<Double> tmaSlows) {
+    tmaSlow = Lists.newArrayList();
     for (int i = 0; i < tmaSlows.size(); i++) {
       double[] point = new double[2];
       point[0] = i + 1;
@@ -140,6 +148,7 @@ public class DataDump {
   }
 
   public void setTmaFast(List<Double> tmaFasts) {
+    tmaFast = Lists.newArrayList();
     for (int i = 0; i < tmaFasts.size(); i++) {
       double[] point = new double[2];
       point[0] = i + 1;
@@ -151,8 +160,6 @@ public class DataDump {
   @Override
   public String toString() {
     Gson gson = new Gson();
-    String json = gson.toJson(this);
-    
-    return json;
+    return gson.toJson(this);
   }
 }
