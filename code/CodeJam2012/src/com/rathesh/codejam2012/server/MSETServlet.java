@@ -32,6 +32,7 @@ public class MSETServlet extends HttpServlet {
   // Determines how many points to keep in server memory
   public static final int WINDOW_SIZE = 32400; // Set to 32400 to turn off the
                                                // effects
+  private StockExchange stockExchange;
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)

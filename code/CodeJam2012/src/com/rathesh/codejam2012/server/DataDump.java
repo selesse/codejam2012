@@ -6,9 +6,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class DataDump {
-  
+
+  private final boolean FULL_DATA_ON_FINISHED = false;
   private int dataRange = 100;
-  
+
   DataList price;
   DataList smaSlow;
   DataList smaFast;
@@ -21,7 +22,7 @@ public class DataDump {
 
   DataList tmaSlow;
   DataList tmaFast;
-  
+
   boolean finished;
 
   public DataDump() {
@@ -36,7 +37,8 @@ public class DataDump {
     tmaFast = new DataList(0);
     finished = false;
   }
-  public void setTime(int time){
+
+  public void setTime(int time) {
     price.setTime(time);
     smaSlow.setTime(time);
     smaFast.setTime(time);
@@ -46,8 +48,9 @@ public class DataDump {
     emaFast.setTime(time);
     tmaSlow.setTime(time);
     tmaFast.setTime(time);
-    
+
   }
+
   public void setFinished(boolean finished) {
     this.finished = true;
   }
@@ -90,7 +93,7 @@ public class DataDump {
   public void setTmaFast(List<Double> tmaFasts) {
     tmaFast.set(tmaFasts);
   }
-  
+
   public void setDataRange(int range) {
     this.dataRange = range;
   }
@@ -98,7 +101,8 @@ public class DataDump {
   @Override
   public String toString() {
     GsonBuilder builder = new GsonBuilder();
-    builder.registerTypeAdapter(DataList.class, new GraphAdapter(dataRange));
+    builder
+        .registerTypeAdapter(DataList.class, new GraphAdapter((this.finished && this.FULL_DATA_ON_FINISHED) ? 32400 : dataRange));
     Gson gson = builder.create();
     String priceJson = gson.toJson(price);
     String smaSlowJson = gson.toJson(smaSlow);
