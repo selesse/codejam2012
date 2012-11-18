@@ -25,7 +25,10 @@ public class GraphAdapter extends TypeAdapter<DataList> {
     List<Double> value = data.getData();
     String s = "[";
     for (int i = 0; i < value.size(); i++) {
-      s = s + "[" + (i + 1) + ".0," + value.get(i) + "],";
+      s = s + "[" + (i + 1) + ".0," + value.get(i) + "]";
+      if (i != value.size() - 1) {
+        s = s + ",";
+      }
     }
     s = s + "]";
     out.value(s);

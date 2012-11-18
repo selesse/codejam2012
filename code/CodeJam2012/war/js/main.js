@@ -24,6 +24,7 @@ function start_data_mining() {
       url : "codejam2012/mset?go",
       type : 'GET',
       error : function (error) {
+        console.log("ERROR GETTING GO");
         console.log(error);
       },
       success : function (results) {
@@ -37,21 +38,23 @@ function update_data() {
     {
       url : "codejam2012/mset?data",
       type : 'GET',
-      error : function (error)
-        { console.log(error) },
+      error : function (error) {
+        console.log("ERROR GETTING DATER");
+        console.log(error)
+      },
       success : function (results) {
         console.log("SUXXESS!");
         console.log(results);
-        if (results.finished == true) {
-          console.log("finished early");
-          return;
-        }
         var price = results.price;
         plot_graph("div#sma-graph", price, results.smaSlow, results.smaFast);
         plot_graph("div#lwma-graph", price, results.lwmaSlow, results.lwmaFast);
         plot_graph("div#ema-graph", price, results.emaSlow, results.emaFast);
         plot_graph("div#tma-graph", price, results.tmaSlow, results.tmaFast);
-        setTimeout(update_data, 1000);
+        if (results.finished == true) {
+          console.log("finished early");
+          return;
+        }
+        setTimeout(update_data, 5);
       }
     }
   );

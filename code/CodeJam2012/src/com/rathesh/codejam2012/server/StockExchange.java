@@ -274,7 +274,7 @@ public class StockExchange implements Runnable {
       }
 
       synchronized (MSETServlet.dataDump) {
-        MSETServlet.dataDump = new DataDump();
+        MSETServlet.dataDump.finished = true;
       }
     }
     catch (IOException e) {

@@ -25,7 +25,7 @@ public class MSETServlet extends HttpServlet {
   public static BufferedReader inTradeBooking = null;
   private static Report report = new Report();
   public static int time;
-  public static DataDump dataDump = new DataDump();
+  public static DataDump dataDump;
   public static final int priceFeedPort = 8211;
   public static final int tradeBookingPort = 8212;
   public static final int WINDOW_SIZE = 100;
@@ -47,6 +47,7 @@ public class MSETServlet extends HttpServlet {
     response.setContentType("application/json");
     PrintWriter out = response.getWriter();
     if (request.getParameter("go") != null) {
+      dataDump = new DataDump();
       Thread t = ThreadManager.createBackgroundThread(new StockExchange());
       t.start();
     }

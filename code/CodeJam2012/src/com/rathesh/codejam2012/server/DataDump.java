@@ -19,6 +19,8 @@ public class DataDump {
 
   DataList tmaSlow;
   DataList tmaFast;
+  
+  boolean finished;
 
   public DataDump() {
     price = new DataList();
@@ -30,6 +32,11 @@ public class DataDump {
     emaFast = new DataList();
     tmaSlow = new DataList();
     tmaFast = new DataList();
+    finished = false;
+  }
+  
+  public void setFinished(boolean finished) {
+    this.finished = true;
   }
 
   public void setPrices(List<Double> prices) {
@@ -95,7 +102,8 @@ public class DataDump {
     json = json + "\"emaSlow\":" + emaSlowJson.substring(1, emaSlowJson.length() - 1) + ",";
     json = json + "\"emaFast\":" + emaFastJson.substring(1, emaFastJson.length() - 1) + ",";
     json = json + "\"tmaSlow\":" + tmaSlowJson.substring(1, tmaSlowJson.length() - 1) + ",";
-    json = json + "\"tmaFast\":" + tmaFastJson.substring(1, tmaFastJson.length() - 1) + "}";
+    json = json + "\"tmaFast\":" + tmaFastJson.substring(1, tmaFastJson.length() - 1) + ",";
+    json = json + "\"finished\":" + this.finished + "}";
 
     return json;
 
