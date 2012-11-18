@@ -1,5 +1,5 @@
 // default refresh rate
-var refresh = 300;
+var refresh = 30;
 var refresh_rate_ms = refresh;
 var yaxis = { };
 
