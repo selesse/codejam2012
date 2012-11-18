@@ -23,6 +23,8 @@ import com.rathesh.codejam2012.server.strategies.TMAStrategy;
  */
 public class StockExchange implements Runnable {
 
+  private List<Double> prices;
+  
   @Override
   public void run() {
     startStockExchange();
@@ -32,7 +34,6 @@ public class StockExchange implements Runnable {
     Socket priceSocket = null;
     PrintWriter out = null;
     BufferedReader in = null;
-    DataDump dataDump = new DataDump();
 
     // 0. Create strategies and managers
     int slowN = 20, fastN = 5;
@@ -46,6 +47,7 @@ public class StockExchange implements Runnable {
     Strategy TMAFast = new TMAStrategy(fastN, MSETServlet.WINDOW_SIZE, true);
 
     try {
+      // 1. Initialize communication
       // Set sockets
       priceSocket = new Socket("localhost", MSETServlet.priceFeedPort);
       MSETServlet.tradeBookingSocket = new Socket("localhost", MSETServlet.tradeBookingPort);
@@ -65,7 +67,7 @@ public class StockExchange implements Runnable {
       String token = "";
       char c;
       MSETServlet.dataDump = new DataDump();
-      List<Double> prices = Lists.newArrayList();
+      prices = Lists.newArrayList();
 
       while ((c = (char) in.read()) != 'C') {
         while (c != '|') {
@@ -75,7 +77,7 @@ public class StockExchange implements Runnable {
         double price = Double.parseDouble(token);
 
         // TODO take care of WINDOW_SIZE
-        prices.add(price);
+        addToPrices(price);
         // 4. Update strategies which will update managers, Managers will call
         // sendBuy or Sell
         SMASlow.update(price);
@@ -88,24 +90,35 @@ public class StockExchange implements Runnable {
         TMAFast.update(price);
         // 5. Update clock
         token = "";
-        // Ignore the delimiter
-        in.read();
 
-        dataDump.setPrices(prices);
-        dataDump.setSmaSlow(SMASlow.getAverages());
-        dataDump.setSmaFast(SMAFast.getAverages());
-        dataDump.setLwmaSlow(LWMASlow.getAverages());
-        dataDump.setLwmaFast(LWMAFast.getAverages());
-        dataDump.setEmaSlow(EMASlow.getAverages());
-        dataDump.setEmaFast(EMAFast.getAverages());
-        dataDump.setTmaSlow(TMASlow.getAverages());
-        dataDump.setTmaFast(TMAFast.getAverages());
+        synchronized (MSETServlet.dataDump) {
+          MSETServlet.dataDump.setPrices(prices);
+          MSETServlet.dataDump.setSmaSlow(SMASlow.getAverages());
+          MSETServlet.dataDump.setSmaFast(SMAFast.getAverages());
+          MSETServlet.dataDump.setLwmaSlow(LWMASlow.getAverages());
+          MSETServlet.dataDump.setLwmaFast(LWMAFast.getAverages());
+          MSETServlet.dataDump.setEmaSlow(EMASlow.getAverages());
+          MSETServlet.dataDump.setEmaFast(EMAFast.getAverages());
+          MSETServlet.dataDump.setTmaSlow(TMASlow.getAverages());
+          MSETServlet.dataDump.setTmaFast(TMAFast.getAverages());
+        }
         MSETServlet.time++;
+      }
+      
+      synchronized (MSETServlet.dataDump) {
+        MSETServlet.dataDump = new DataDump();
       }
     }
     catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
+  }
+  
+  public void addToPrices(double d) {
+    if (this.prices.size() >= MSETServlet.WINDOW_SIZE ) {
+      this.prices.remove(0);
+    }
+    this.prices.add(d);
   }
 }
