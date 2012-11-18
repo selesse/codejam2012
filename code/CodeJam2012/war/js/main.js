@@ -6,13 +6,64 @@ $(document).ready(function() {
     if ($("div#graphs").hasClass("hidden")) {
       $("div#schedule").toggleClass("hidden");
       $("div#graphs").toggleClass("hidden");
+
+      $("button#go").toggleClass("disabled");
+      $("button#report").toggleClass("disabled");
+
+      $("button#go").off("click");
+
+      $("button#go").click(function() { });
+      $("button#report").click(function() {
+        alert("Shiver me timber!");
+      });
     }
+    start_data_mining();
+
     plot_graph("div#sma-graph");
     plot_graph("div#lwma-graph");
     plot_graph("div#ema-graph");
     plot_graph("div#tma-graph");
   });
 });
+
+function start_data_mining() {
+  $.ajax(
+    {
+      url : "codejam2012/mset?go",
+      type : 'GET',
+      error : function (error) {
+        console.log(error);
+      },
+      success : function (results) {
+        update_data();
+      }
+  });
+}
+
+function update_data() {
+  $.ajax(
+    {
+      url : "codejam2012/mset?data",
+      type : 'GET',
+      error : function (error)
+        { console.log(error) },
+      success : function (results) {
+        var price = results.price;
+        if (price.length == 0) {
+          console.log("early return!");
+          console.log(results);
+
+          return;
+        }
+        plot_graph("div#sma-graph", price, results.smaSlow, results.smaFast);
+        plot_graph("div#lwma-graph", price, results.lwmaSlow, results.lwmaFast);
+        plot_graph("div#ema-graph", price, results.emaSlow, results.emaFast);
+        plot_graph("div#tma-graph", price, results.tmaSlow, results.tmaFast);
+        setTimeout(update_data, 1000);
+      }
+    }
+  );
+}
 
 function plot_graph(id, price, slow, fast) {
   var graph_name = id.substring(id.indexOf("#") + 1, id.indexOf("-")).toUpperCase();
@@ -27,7 +78,7 @@ function plot_graph(id, price, slow, fast) {
       { label : graph_name + " [20]", data: slow },
     ];
 
-  var options = {};
+  var options = {  };
 
   // clear the HTML otherwise continually calling $.plot extends height
   $(id).html("");
