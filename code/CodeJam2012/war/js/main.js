@@ -25,19 +25,38 @@ $(document).ready(function() {
 
   // access link "mset?report", log the results
   $("button#report").click(function() {
-    $.ajax(
-      {
-      url : "codejam2012/mset?report",
-      type : 'GET',
-      error : function (error) {
-        console.log("Error accessing mset?report!");
-        console.log(error);
-      },
-      success : function (results) {
-        console.log("Successfully got report:\n" + JSON.stringify(results));
-      }
-    });
+    $.ajax( {
+        url : "codejam2012/mset?report",
+        type : 'GET',
+        error : function (error) {
+          console.log("Error accessing mset?report!");
+          console.log(error);
+        },
+        success : function (results) {
+          console.log("Successfully got report:\n" + JSON.stringify(results));
+          send_data_to_silanis(results);
+        }
+    } );
   });
+
+  function send_data_to_silanis(results) {
+    $.ajax( {
+        type : 'POST',
+        data : results,
+        crossDomain : true,
+        headers : { "Authentication" : "Basic Y29kZWphbTpBRkxpdGw0TEEyQWQx",
+                    "Content-Type" : "application/json" },
+        url : "https://stage-api.e-signlive.com/aws/rest/services/codejam",
+        error : function (error) {
+          console.log("Error sending results to Silanis!");
+          console.log(error);
+        },
+        successs : function (results) {
+          console.log("Got results!");
+          console.log(results);
+        }
+    } );
+  }
 
   // save variables from graph settings, show a "success" then fade out
   $("button#saveModal").click(function() {
