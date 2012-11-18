@@ -12,6 +12,11 @@ import com.rathesh.codejam2012.server.strategies.*;
 public class Manager implements Observer {
   protected String name;
   protected boolean idol;
+  protected boolean smaBought = false;
+  protected boolean lwmaBought = false;
+  protected boolean emaBought = false;
+  protected boolean tmaBought = false;
+
   protected List<Double> smaSlow;
   protected List<Double> smaFast;
   protected List<Double> lwmaSlow;
@@ -33,13 +38,14 @@ public class Manager implements Observer {
     emaSlow = new ArrayList<Double>();
     emaFast = new ArrayList<Double>();
   }
-  public void setIdol(boolean status){
+
+  public void setIdol(boolean status) {
     this.idol = status;
   }
 
   @Override
   public void update(Observable o, Object arg) {
-    if(idol){
+    if (idol) {
       return;
     }
     try {
@@ -62,16 +68,26 @@ public class Manager implements Observer {
     if (smaFast.size() == smaSlow.size()) {
       if (smaFast.size() == 1) {
         if (smaFast.get(0) > smaSlow.get(0)) {
-          MSETServlet.sendBuy(name, "SMA");
+          if (MSETServlet.sendBuy(name, "SMA")) {
+            smaBought = true;
+          }
         }
-      }else if ((smaFast.get(smaFast.size() - 2) > smaSlow.get(smaSlow.size() - 2))
-            && (smaFast.get(smaFast.size() - 1) < smaSlow.get(smaSlow.size() - 1))) {
-          MSETServlet.sendSell(name, "SMA");;
+      }
+      else if ((this.smaBought == true)
+          && (smaFast.get(smaFast.size() - 1) < smaSlow.get(smaSlow.size() - 1))) {
+
+        if (MSETServlet.sendSell(name, "SMA")) {
+          smaBought = false;
         }
-        else if ((smaFast.get(smaFast.size() - 2) < smaSlow.get(smaSlow.size() - 2))
-            && (smaFast.get(smaFast.size() - 1) > smaSlow.get(smaSlow.size() - 1))) {
-          MSETServlet.sendBuy(name, "SMA");
+        ;
+      }
+      else if ((this.smaBought == false)
+          && (smaFast.get(smaFast.size() - 1) > smaSlow.get(smaSlow.size() - 1))) {
+
+        if (MSETServlet.sendBuy(name, "SMA")) {
+          smaBought = true;
         }
+      }
 
     }
 
@@ -87,20 +103,28 @@ public class Manager implements Observer {
     if (lwmaFast.size() == lwmaSlow.size()) {
       if (lwmaFast.size() == 1) {
         if (lwmaFast.get(0) > lwmaSlow.get(0)) {
-          MSETServlet.sendBuy(name, "LWMA");;
-        }
-      }
-        else if ((lwmaFast.get(lwmaFast.size() - 2) > lwmaSlow.get(lwmaSlow.size() - 2))
-            && (lwmaFast.get(lwmaFast.size() - 1) < lwmaSlow.get(lwmaSlow.size() - 1))) {
-          MSETServlet.sendSell(name, "LWMA");;
-        }
-        else if ((lwmaFast.get(lwmaFast.size() - 2) < lwmaSlow.get(lwmaSlow.size() - 2))
-            && (lwmaFast.get(lwmaFast.size() - 1) > lwmaSlow.get(lwmaSlow.size() - 1))) {
-          MSETServlet.sendBuy(name, "LWMA");;
-        }
-      }
+          if (MSETServlet.sendBuy(name, "LWMA")) {
+            lwmaBought = true;
+          }
 
-    
+        }
+      }
+      else if ((lwmaBought == true)
+          && (lwmaFast.get(lwmaFast.size() - 1) < lwmaSlow.get(lwmaSlow.size() - 1))) {
+
+        if (MSETServlet.sendSell(name, "LWMA")) {
+          lwmaBought = false;
+        }
+
+      }
+      else if ((lwmaBought == false)
+          && (lwmaFast.get(lwmaFast.size() - 1) > lwmaSlow.get(lwmaSlow.size() - 1))) {
+        if (MSETServlet.sendBuy(name, "LWMA")) {
+          lwmaBought = true;
+        }
+      }
+    }
+
   }
 
   public void update(EMAStrategy str, Object arg) {
@@ -113,19 +137,28 @@ public class Manager implements Observer {
     if (emaFast.size() == emaSlow.size()) {
       if (emaFast.size() == 1) {
         if (emaFast.get(0) > emaSlow.get(0)) {
-          MSETServlet.sendBuy(name, "EMA");;
-        }
-      }else if ((emaFast.get(emaFast.size() - 2) > emaSlow.get(emaSlow.size() - 2))
-            && (emaFast.get(emaFast.size() - 1) < emaSlow.get(emaSlow.size() - 1))) {
-          MSETServlet.sendSell(name, "EMA");;
-        }
-        else if ((emaFast.get(emaFast.size() - 2) < emaSlow.get(emaSlow.size() - 2))
-            && (emaFast.get(emaFast.size() - 1) > emaSlow.get(emaSlow.size() - 1))) {
-          MSETServlet.sendBuy(name, "EMA");;
+          if (MSETServlet.sendBuy(name, "EMA")) {
+            emaBought = true;
+          }
+
         }
       }
+      else if ((emaBought == true)
+          && (emaFast.get(emaFast.size() - 1) < emaSlow.get(emaSlow.size() - 1))) {
+        if (MSETServlet.sendSell(name, "EMA")) {
+          emaBought = false;
+        }
 
-    
+      }
+      else if ((emaBought == false)
+          && (emaFast.get(emaFast.size() - 1) > emaSlow.get(emaSlow.size() - 1))) {
+        if (MSETServlet.sendBuy(name, "EMA")) {
+          emaBought = true;
+        }
+
+      }
+    }
+
   }
 
   public void update(TMAStrategy str, Object arg) {
@@ -138,21 +171,28 @@ public class Manager implements Observer {
     if (tmaFast.size() == tmaSlow.size()) {
       if (tmaFast.size() == 1) {
         if (tmaFast.get(0) > tmaSlow.get(0)) {
-          MSETServlet.sendBuy(name, "TMA");;
-        }
-      } else if ((tmaFast.get(tmaFast.size() - 2) > tmaSlow.get(tmaSlow.size() - 2))
-            && (tmaFast.get(tmaFast.size() - 1) < tmaSlow.get(tmaSlow.size() - 1))) {
-          MSETServlet.sendSell(name, "TMA");;
-        }
-        else if ((tmaFast.get(tmaFast.size() - 2) < tmaSlow.get(tmaSlow.size() - 2))
-            && (tmaFast.get(tmaFast.size() - 1) > tmaSlow.get(tmaSlow.size() - 1))) {
-          MSETServlet.sendBuy(name, "TMA");;
+          if(MSETServlet.sendBuy(name, "TMA")){
+            tmaBought = true;
+          }
+
         }
       }
+      else if ((tmaBought == true)
+          && (tmaFast.get(tmaFast.size() - 1) < tmaSlow.get(tmaSlow.size() - 1))) {
+        if(MSETServlet.sendSell(name, "TMA")){
+          tmaBought = false;
+        }
 
-    
+      }
+      else if ((tmaBought == false)
+          && (tmaFast.get(tmaFast.size() - 1) > tmaSlow.get(tmaSlow.size() - 1))) {
+        if(MSETServlet.sendBuy(name, "TMA")){
+          tmaBought = true;
+        }
+
+      }
+    }
+
   }
-  
- 
 
 }
