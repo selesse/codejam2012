@@ -2,157 +2,93 @@ package com.rathesh.codejam2012.server;
 
 import java.util.List;
 
-import com.google.common.collect.Lists;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.rathesh.codejam2012.server.strategies.GraphAdapter;
 
 public class DataDump {
-  List<double[]> price;
-  List<double[]> smaSlow;
-  List<double[]> smaFast;
+  DataList price;
+  DataList smaSlow;
+  DataList smaFast;
 
-  List<double[]> lwmaSlow;
-  List<double[]> lwmaFast;
+  DataList lwmaSlow;
+  DataList lwmaFast;
 
-  List<double[]> emaSlow;
-  List<double[]> emaFast;
+  DataList emaSlow;
+  DataList emaFast;
 
-  List<double[]> tmaSlow;
-  List<double[]> tmaFast;
-  
+  DataList tmaSlow;
+  DataList tmaFast;
+
   public DataDump() {
-    price = Lists.newArrayList();
-    smaSlow = Lists.newArrayList();
-    smaFast = Lists.newArrayList();
-    lwmaSlow = Lists.newArrayList();
-    lwmaFast = Lists.newArrayList();
-    emaSlow = Lists.newArrayList();
-    emaFast = Lists.newArrayList();
-    tmaSlow = Lists.newArrayList();
-    tmaFast = Lists.newArrayList();
-  }
-  
-  public List<double[]> getPrice() {
-    return price;
-  }
-  
-  public void setPrices(List<Double> prices) {
-    for (int i = 0; i < prices.size(); i++) {
-      double[] point = new double[2];
-      point[0] = i + 1;
-      point[1] = prices.get(i);
-      price.add(point);
-    }
+    price = new DataList();
+    smaSlow = new DataList();
+    smaFast = new DataList();
+    lwmaSlow = new DataList();
+    lwmaFast = new DataList();
+    emaSlow = new DataList();
+    emaFast = new DataList();
+    tmaSlow = new DataList();
+    tmaFast = new DataList();
   }
 
-  public List<double[]> getSmaSlow() {
-    return smaSlow;
+  public void setPrices(List<Double> prices) {
+    price.addAll(prices);
   }
 
   public void setSmaSlow(List<Double> smaSlows) {
-    for (int i = 0; i < smaSlows.size(); i++) {
-      double[] point = new double[2];
-      point[0] = i + 1;
-      point[1] = smaSlows.get(i);
-      smaSlow.add(point);
-    }
-  }
 
-  public List<double[]> getSmaFast() {
-    return smaFast;
+    smaSlow.addAll(smaSlows);
+
   }
 
   public void setSmaFast(List<Double> smaFasts) {
-    for (int i = 0; i < smaFasts.size(); i++) {
-      double[] point = new double[2];
-      point[0] = i + 1;
-      point[1] = smaFasts.get(i);
-      smaFast.add(point);
-    }
-  }
-
-  public List<double[]> getLwmaSlow() {
-    return lwmaSlow;
+    smaFast.addAll(smaFasts);
   }
 
   public void setLwmaSlow(List<Double> lwmaSlows) {
-    for (int i = 0; i < lwmaSlows.size(); i++) {
-      double[] point = new double[2];
-      point[0] = i + 1;
-      point[1] = lwmaSlows.get(i);
-      lwmaSlow.add(point);
-    }
-  }
 
-  public List<double[]> getLwmaFast() {
-    return lwmaFast;
+    lwmaSlow.addAll(lwmaSlows);
   }
 
   public void setLwmaFast(List<Double> lwmaFasts) {
-    for (int i = 0; i < lwmaFasts.size(); i++) {
-      double[] point = new double[2];
-      point[0] = i + 1;
-      point[1] = lwmaFasts.get(i);
-      lwmaFast.add(point);
-    }
-  }
-
-  public List<double[]> getEmaSlow() {
-    return emaSlow;
+    lwmaFast.addAll(lwmaFasts);
   }
 
   public void setEmaSlow(List<Double> emaSlows) {
-    for (int i = 0; i < emaSlows.size(); i++) {
-      double[] point = new double[2];
-      point[0] = i + 1;
-      point[1] = emaSlows.get(i);
-      emaSlow.add(point);
-    }
-  }
-
-  public List<double[]> getEmaFast() {
-    return emaFast;
+    emaSlow.addAll(emaSlows);
   }
 
   public void setEmaFast(List<Double> emaFasts) {
-    for (int i = 0; i < emaFasts.size(); i++) {
-      double[] point = new double[2];
-      point[0] = i + 1;
-      point[1] = emaFasts.get(i);
-      emaFast.add(point);
-    }
-  }
-
-  public List<double[]> getTmaSlow() {
-    return tmaSlow;
+    emaFast.addAll(emaFasts);
   }
 
   public void setTmaSlow(List<Double> tmaSlows) {
-    for (int i = 0; i < tmaSlows.size(); i++) {
-      double[] point = new double[2];
-      point[0] = i + 1;
-      point[1] = tmaSlows.get(i);
-      tmaSlow.add(point);
-    }
-  }
-
-  public List<double[]> getTmaFast() {
-    return tmaFast;
+    tmaSlow.addAll(tmaSlows);
   }
 
   public void setTmaFast(List<Double> tmaFasts) {
-    for (int i = 0; i < tmaFasts.size(); i++) {
-      double[] point = new double[2];
-      point[0] = i + 1;
-      point[1] = tmaFasts.get(i);
-      tmaFast.add(point);
-    }
+    tmaFast.addAll(tmaFasts);
   }
 
   @Override
   public String toString() {
-    Gson gson = new Gson();
-    String json = gson.toJson(this);
+    GsonBuilder builder = new GsonBuilder();
+    builder.registerTypeAdapter(DataList.class, new GraphAdapter());
+    Gson gson = builder.create();
+    String json = "{";
+    json = json +"\"price\":"+gson.toJson(price)+",";
+    json = json +"\"smaSlow\":"+gson.toJson(smaSlow)+",";
+    json = json +"\"smaFast\":"+gson.toJson(smaFast)+",";
+    json = json +"\"lwmaSlow\":"+gson.toJson(lwmaSlow)+",";
+    json = json +"\"lwmaFast\":"+gson.toJson(lwmaFast)+",";
+    json = json +"\"emaSlow\":"+gson.toJson(emaSlow)+",";
+    json = json +"\"emaFast\":"+gson.toJson(emaFast)+",";
+    json = json +"\"tmaSlow\":"+gson.toJson(tmaSlow)+",";
+    json = json +"\"tmaFast\":"+gson.toJson(tmaFast)+"}";
     
+    
+
     return json;
   }
 }
