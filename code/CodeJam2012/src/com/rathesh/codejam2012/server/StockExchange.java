@@ -47,6 +47,7 @@ public class StockExchange implements Runnable {
     Strategy TMAFast = new TMAStrategy(fastN, MSETServlet.WINDOW_SIZE, true);
 
     try {
+      // 1. Initialize communication
       // Set sockets
       priceSocket = new Socket("localhost", MSETServlet.priceFeedPort);
       MSETServlet.tradeBookingSocket = new Socket("localhost", MSETServlet.tradeBookingPort);
@@ -102,6 +103,10 @@ public class StockExchange implements Runnable {
           MSETServlet.dataDump.setTmaFast(TMAFast.getAverages());
         }
         MSETServlet.time++;
+      }
+      
+      synchronized (MSETServlet.dataDump) {
+        MSETServlet.dataDump = new DataDump();
       }
     }
     catch (IOException e) {
