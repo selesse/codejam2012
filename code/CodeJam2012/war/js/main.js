@@ -53,6 +53,7 @@ $(document).ready(function() {
         },
         successs : function (results) {
           console.log("Got results!");
+          // TODO, show the ceremony id on the GUI
           console.log(results);
         }
     } );
