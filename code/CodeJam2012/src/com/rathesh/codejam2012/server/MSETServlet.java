@@ -45,8 +45,14 @@ public class MSETServlet extends HttpServlet {
       t.start();
     }
     else if (request.getParameter("report") != null) {
-      createReportFile(report.toString());
       out.println(report.toString());
+      out.flush();
+    }
+    else if (request.getParameter("reportFile") != null) {
+      response.setContentType("application/octet-stream");
+      response.setHeader("Content-Disposition", "attachment; filename=report.json");
+      out.println(report.toString());
+      out.flush();
     }
     else if (request.getParameter("data") != null) {
       synchronized (dataDump) {
@@ -54,16 +60,8 @@ public class MSETServlet extends HttpServlet {
       }
       out.flush();
     }
-  }
 
-  private void createReportFile(String reportJson) {
-    /*
-     * try { File file = new File("reportJson " + new Date() + ".json");
-     * PrintWriter pw = new PrintWriter(file); pw.println(reportJson);
-     * pw.flush(); pw.close(); } catch (IOException e) {
-     * 
-     * }
-     */
+    out.close();
   }
 
   public static void sendSell(String name, String type) {

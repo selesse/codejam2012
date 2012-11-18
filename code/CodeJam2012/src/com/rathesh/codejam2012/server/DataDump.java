@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.rathesh.codejam2012.server.strategies.SMAStrategyTest;
 
 public class DataDump {
   
