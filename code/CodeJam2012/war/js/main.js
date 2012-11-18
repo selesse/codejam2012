@@ -10,19 +10,11 @@ $(document).ready(function() {
       $("button#go").toggleClass("disabled");
       $("button#report").toggleClass("disabled");
 
-      $("button#go").off("click");
-
-      $("button#go").click(function() { });
       $("button#report").click(function() {
         alert("Shiver me timber!");
       });
     }
     start_data_mining();
-
-    plot_graph("div#sma-graph");
-    plot_graph("div#lwma-graph");
-    plot_graph("div#ema-graph");
-    plot_graph("div#tma-graph");
   });
 });
 
@@ -48,13 +40,10 @@ function update_data() {
       error : function (error)
         { console.log(error) },
       success : function (results) {
-        var price = results.price;
-        if (price.length == 0) {
-          console.log("early return!");
-          console.log(results);
-
+        if (results.finished == true) {
           return;
         }
+        var price = results.price;
         plot_graph("div#sma-graph", price, results.smaSlow, results.smaFast);
         plot_graph("div#lwma-graph", price, results.lwmaSlow, results.lwmaFast);
         plot_graph("div#ema-graph", price, results.emaSlow, results.emaFast);
