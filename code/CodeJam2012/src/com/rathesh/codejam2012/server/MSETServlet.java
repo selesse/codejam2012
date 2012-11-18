@@ -24,11 +24,13 @@ public class MSETServlet extends HttpServlet {
   public static PrintWriter outTradeBooking = null;
   public static BufferedReader inTradeBooking = null;
   private static Report report = new Report();
+  // Time in seconds
   public static int time;
   public static DataDump dataDump;
   public static final int priceFeedPort = 8211;
   public static final int tradeBookingPort = 8212;
-  public static final int WINDOW_SIZE = 100;
+  // Determines how many points to keep in server memory
+  public static final int WINDOW_SIZE = 32400; // Set to 32400 to turn off the effects
 
   public DataDump getData() {
     return dataDump;

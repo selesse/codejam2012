@@ -8,6 +8,7 @@ import com.rathesh.codejam2012.server.strategies.SMAStrategyTest;
 
 public class DataDump {
   
+  private int dataRange = 100;
   
   DataList price;
   DataList smaSlow;
@@ -90,11 +91,15 @@ public class DataDump {
   public void setTmaFast(List<Double> tmaFasts) {
     tmaFast.set(tmaFasts);
   }
+  
+  public void setDataRange(int range) {
+    this.dataRange = range;
+  }
 
   @Override
   public String toString() {
     GsonBuilder builder = new GsonBuilder();
-    builder.registerTypeAdapter(DataList.class, new GraphAdapter());
+    builder.registerTypeAdapter(DataList.class, new GraphAdapter(dataRange));
     Gson gson = builder.create();
     String priceJson = gson.toJson(price);
     String smaSlowJson = gson.toJson(smaSlow);
