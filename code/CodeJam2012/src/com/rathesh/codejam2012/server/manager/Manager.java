@@ -59,10 +59,12 @@ public class Manager implements Observer {
 
   public void update(SMAStrategy str, Object arg) {
     if (str.isFast() == true) {
-      smaFast.add((double) arg);
+      Double d = (Double) arg;
+      smaFast.add(d);
     }
     else {
-      smaSlow.add((double) arg);
+      Double d = (Double) arg;
+      smaSlow.add(d);
     }
 
     if (smaFast.size() == smaSlow.size()) {
@@ -95,10 +97,12 @@ public class Manager implements Observer {
 
   public void update(LWMAStrategy str, Object arg) {
     if (str.isFast() == true) {
-      lwmaFast.add((double) arg);
+      Double d = (Double) arg;
+      lwmaFast.add(d);
     }
     else {
-      lwmaSlow.add((double) arg);
+      Double d = (Double) arg;
+      lwmaSlow.add(d);
     }
     if (lwmaFast.size() == lwmaSlow.size()) {
       if (lwmaFast.size() == 1) {
@@ -129,10 +133,12 @@ public class Manager implements Observer {
 
   public void update(EMAStrategy str, Object arg) {
     if (str.isFast() == true) {
-      emaFast.add((double) arg);
+      Double d = (Double) arg;
+      emaFast.add(d);
     }
     else {
-      emaSlow.add((double) arg);
+      Double d = (Double) arg;
+      emaSlow.add(d);
     }
     if (emaFast.size() == emaSlow.size()) {
       if (emaFast.size() == 1) {
@@ -163,10 +169,12 @@ public class Manager implements Observer {
 
   public void update(TMAStrategy str, Object arg) {
     if (str.isFast() == true) {
-      tmaFast.add((double) arg);
+      Double d = (Double) arg;
+      tmaFast.add(d);
     }
     else {
-      tmaSlow.add((double) arg);
+      Double d = (Double) arg;
+      tmaSlow.add(d);
     }
     if (tmaFast.size() == tmaSlow.size()) {
       if (tmaFast.size() == 1) {
