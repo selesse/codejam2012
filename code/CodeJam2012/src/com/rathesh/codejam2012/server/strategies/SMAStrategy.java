@@ -38,6 +38,7 @@ public class SMAStrategy extends AbstractStrategy {
 
     // Update averages
     addToAverages(SMAt);
+    this.setChanged();
     this.notifyObservers(SMAt);
     return SMAt;
   }

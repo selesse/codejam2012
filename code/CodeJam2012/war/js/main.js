@@ -6,6 +6,7 @@ var yaxis = { };
 $(document).ready(function() {
   show_manager_schedule();
 
+  // set the default refresh rate on the UI
   $("div.modal-body input#data-refresh").val(refresh_rate_ms);
 
   // go swaps the primary visuals, swaps button enabling/disabling and starts
@@ -16,12 +17,29 @@ $(document).ready(function() {
       $("div#schedule").toggleClass("hidden");
       $("div#graphs").toggleClass("hidden");
 
+      // TODO hide this button
       $("button#go").toggleClass("disabled");
-      $("button#report").toggleClass("disabled");
     }
     start_data_mining();
   });
 
+  // access link "mset?report", log the results
+  $("button#report").click(function() {
+    $.ajax(
+      {
+      url : "codejam2012/mset?report",
+      type : 'GET',
+      error : function (error) {
+        console.log("Error accessing mset?report!");
+        console.log(error);
+      },
+      success : function (results) {
+        console.log("Successfully got report:\n" + JSON.stringify(results));
+      }
+    });
+  });
+
+  // save variables from graph settings, show a "success" then fade out
   $("button#saveModal").click(function() {
     refresh_rate_ms = $("div.modal-body input#data-refresh").val() || refresh;
     ymax = $("div.modal-body input#y-max").val() || null;
@@ -67,6 +85,8 @@ function update_data() {
         plot_graph("div#tma-graph", price, results.tmaSlow, results.tmaFast);
         if (results.finished == true) {
           console.log("Received 'finish' signal.");
+          $("button#report").toggleClass("hidden");
+          $("a#downloadReport").toggleClass("hidden");
           return;
         }
         setTimeout(update_data, refresh_rate_ms);
