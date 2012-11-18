@@ -23,6 +23,17 @@ $(document).ready(function() {
     start_data_mining();
   });
 
+  $("button#report").click(function() {
+    // swap the hidden status of graphs & schedule... only at the beginning
+    if ($("table#report").hasClass("hidden")) {
+      $("button#report").html("Graphs");
+    } else {
+      $("button#report").html("Report");
+    }
+    $("table#report").toggleClass("hidden");
+    $("div#graphs").toggleClass("hidden");
+  });
+
   // access link "mset?report", log the results
   $("button#report").click(function() {
     $.ajax( {
@@ -34,56 +45,59 @@ $(document).ready(function() {
         },
         success : function (results) {
           console.log("Successfully got report:\n" + JSON.stringify(results));
-          json = 
-    	  {
-    		  "team" : "Flying monkeys",
-    		  "destination" : "mcgillcodejam2012@gmail.com",
-    		  "transactions" : [
-    			  {
-    				  "time" : "8004",
-    				  "type" : "buy",
-    				  "price" : 120,
-    				  "manager" : "Manager1",
-    				  "strategy" : "EMA"
-    			  },
-    			  {
-    				  "time" : "9589",
-    				  "type" : "sell",
-    				  "price" : 122,
-    				  "manager" : "Manager2",
-    				  "strategy" : "LWMA"
-    			  },
-    			  {
-    				  "time" : "16542",
-    				  "type" : "buy",
-    				  "price" : 118,
-    				  "manager" : "Manager1",
-    				  "strategy" : "TMA"
-    			  }
-    		  ]
-    	  };
+          json =
+          {
+            "team" : "Flying monkeys",
+            "destination" : "mcgillcodejam2012@gmail.com",
+            "transactions" : [
+              {
+                "time" : "8004",
+                "type" : "buy",
+                "price" : 120,
+                "manager" : "Manager1",
+                "strategy" : "EMA"
+              },
+              {
+                "time" : "9589",
+                "type" : "sell",
+                "price" : 122,
+                "manager" : "Manager2",
+                "strategy" : "LWMA"
+              },
+              {
+                "time" : "16542",
+                "type" : "buy",
+                "price" : 118,
+                "manager" : "Manager1",
+                "strategy" : "TMA"
+              }
+            ]
+          };
           update_table(json); // TODO change to results
-          send_data_to_silanis(results);
+          if ($("table#reports").hasClass("hidden")) {
+            //send_data_to_silanis(results);
+          }
         }
     } );
   });
-  
+
   function update_table(json) {
+    $("table#report").find('tbody').html("");
 	  for (var r in json.transactions) {
-		  $("table#reportTable").find('tbody')
-		      .append($('<tr>')
+		  $("table#report").find('tbody')
+          .append($('<tr>')
 		        .append($('<td>')
 		          .append(json.transactions[r].time)
 		        ).append($('<td>')
-				  .append(json.transactions[r].type)
-				).append($('<td>')
-				  .append(json.transactions[r].price)
-				).append($('<td>')
-				  .append(json.transactions[r].manager)
-				).append($('<td>')
-				  .append(json.transactions[r].strategy)
-				)
-		      );
+              .append(json.transactions[r].type)
+            ).append($('<td>')
+              .append(json.transactions[r].price)
+            ).append($('<td>')
+              .append(json.transactions[r].manager)
+            ).append($('<td>')
+              .append(json.transactions[r].strategy)
+            )
+          );
 	  }
   }
 
