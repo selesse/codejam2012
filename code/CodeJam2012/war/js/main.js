@@ -34,10 +34,58 @@ $(document).ready(function() {
         },
         success : function (results) {
           console.log("Successfully got report:\n" + JSON.stringify(results));
+          json = 
+    	  {
+    		  "team" : "Flying monkeys",
+    		  "destination" : "mcgillcodejam2012@gmail.com",
+    		  "transactions" : [
+    			  {
+    				  "time" : "8004",
+    				  "type" : "buy",
+    				  "price" : 120,
+    				  "manager" : "Manager1",
+    				  "strategy" : "EMA"
+    			  },
+    			  {
+    				  "time" : "9589",
+    				  "type" : "sell",
+    				  "price" : 122,
+    				  "manager" : "Manager2",
+    				  "strategy" : "LWMA"
+    			  },
+    			  {
+    				  "time" : "16542",
+    				  "type" : "buy",
+    				  "price" : 118,
+    				  "manager" : "Manager1",
+    				  "strategy" : "TMA"
+    			  }
+    		  ]
+    	  };
+          update_table(json); // TODO change to results
           send_data_to_silanis(results);
         }
     } );
   });
+  
+  function update_table(json) {
+	  for (var r in json.transactions) {
+		  $("table#reportTable").find('tbody')
+		      .append($('<tr>')
+		        .append($('<td>')
+		          .append(json.transactions[r].time)
+		        ).append($('<td>')
+				  .append(json.transactions[r].type)
+				).append($('<td>')
+				  .append(json.transactions[r].price)
+				).append($('<td>')
+				  .append(json.transactions[r].manager)
+				).append($('<td>')
+				  .append(json.transactions[r].strategy)
+				)
+		      );
+	  }
+  }
 
   function send_data_to_silanis(results) {
     $.ajax( {
