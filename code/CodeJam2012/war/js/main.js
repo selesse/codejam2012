@@ -54,7 +54,7 @@ function update_data() {
           console.log("finished early");
           return;
         }
-        setTimeout(update_data, 5);
+        setTimeout(update_data, 10);
       }
     }
   );
