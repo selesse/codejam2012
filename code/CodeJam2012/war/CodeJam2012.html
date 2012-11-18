@@ -124,18 +124,22 @@
           </div>
       </div>
       
-      <table id="report" class="hidden table table-bordered table-condensed table-striped">
-      	<thead>
-      	  <tr>
-      		<td>Time</td>
-      		<td>Type</td>
-      		<td>Price</td>
-      		<td>Manager name</td>
-      		<td>Strategy</td>
-      	  </tr>
-      	</thead>
-      	<tbody/>
-      </table>
+      <div id="report" class="hidden">
+        <div id="ceremony" class="hidden alert alert-info center">
+        </div>
+        <table id="reportTable" class="table table-bordered table-condensed table-striped">
+          <thead>
+            <tr>
+            <td>Time</td>
+            <td>Type</td>
+            <td>Price</td>
+            <td>Manager name</td>
+            <td>Strategy</td>
+            </tr>
+          </thead>
+          <tbody/>
+        </table>
+      </div>
       
       <div class="controls center">
         <button id="go" class="btn btn-primary btn-large" type="button" title="Begin the application.">Go</button>

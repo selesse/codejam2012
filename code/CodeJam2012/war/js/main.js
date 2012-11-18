@@ -23,17 +23,6 @@ $(document).ready(function() {
     start_data_mining();
   });
 
-  $("button#report").click(function() {
-    // swap the hidden status of graphs & schedule... only at the beginning
-    if ($("table#report").hasClass("hidden")) {
-      $("button#report").html("Graphs");
-    } else {
-      $("button#report").html("Report");
-    }
-    $("table#report").toggleClass("hidden");
-    $("div#graphs").toggleClass("hidden");
-  });
-
   // access link "mset?report", log the results
   $("button#report").click(function() {
     $.ajax( {
@@ -74,17 +63,26 @@ $(document).ready(function() {
             ]
           };
           update_table(json); // TODO change to results
-          if ($("table#reports").hasClass("hidden")) {
-            //send_data_to_silanis(results);
+          if ($("button#report").html() == "Report") {
+            console.log("sending to silanis");
+            send_data_to_silanis(results);
           }
+
+          if ($("div#report").hasClass("hidden")) {
+            $("button#report").html("Graphs");
+          } else {
+            $("button#report").html("Report");
+          }
+          $("div#report").toggleClass("hidden");
+          $("div#graphs").toggleClass("hidden");
         }
     } );
   });
 
   function update_table(json) {
-    $("table#report").find('tbody').html("");
+    $("table#reportTable").find('tbody').html("");
 	  for (var r in json.transactions) {
-		  $("table#report").find('tbody')
+		  $("table#reportTable").find('tbody')
           .append($('<tr>')
 		        .append($('<td>')
 		          .append(json.transactions[r].time)
@@ -114,11 +112,14 @@ $(document).ready(function() {
           console.log(error);
         },
         successs : function (results) {
-          console.log("Got results!");
-          // TODO, show the ceremony id on the GUI
-          console.log(results);
+          show_ceremony_id(results);
         }
     } );
+  }
+
+  function show_ceremony_id(json) {
+    $("div#ceremony").html("Ceremony Id: " + json.ceremonyId);
+    $("div#ceremony").toggleClass("hidden");
   }
 
   // save variables from graph settings, show a "success" then fade out
