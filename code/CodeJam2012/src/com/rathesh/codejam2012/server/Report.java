@@ -9,8 +9,7 @@ public class Report {
   @SuppressWarnings("unused")
   private final String team = "Rathesh.com";
   @SuppressWarnings("unused")
-  // TODO fix me for final
-  private final String destination = "notifications@selesse.com";
+  private final String destination = "mcgillcodejam2012@gmail.com";
   private List<Transaction> transactions = Lists.newArrayList();
 
   public void add(Transaction transaction) {

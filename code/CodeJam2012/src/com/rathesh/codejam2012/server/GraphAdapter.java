@@ -18,12 +18,6 @@ public class GraphAdapter extends TypeAdapter<DataList> {
 
   @Override
   public DataList read(JsonReader in) throws IOException {
-    // TODO Auto-generated method stub
-    // if (in.peek() == JsonToken.NULL) {
-    // in.nextNull();
-    // return null;
-    // }
-    // String collection = reader.nextString();
     return null;
   }
 
