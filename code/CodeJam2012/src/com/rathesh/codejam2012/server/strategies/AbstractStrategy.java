@@ -5,7 +5,7 @@ import java.util.Observable;
 import java.util.Queue;
 import com.google.common.collect.*;
 
-public abstract class AbstractStrategy extends Observable implements Strategy   {
+public abstract class AbstractStrategy extends Observable implements Strategy {
 
   protected final int N, windowSize;
   protected Queue<Double> prices;
@@ -32,14 +32,14 @@ public abstract class AbstractStrategy extends Observable implements Strategy   
   public List<Double> getAverages() {
     return this.averages;
   }
-  
+
   public void addToAverages(double d) {
-    if (this.averages.size() >= windowSize ) {
+    if (this.averages.size() >= windowSize) {
       this.averages.remove(0);
     }
     this.averages.add(d);
   }
-  
+
   @Override
   public boolean isFast() {
     return flag;

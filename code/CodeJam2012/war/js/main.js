@@ -40,7 +40,10 @@ function update_data() {
       error : function (error)
         { console.log(error) },
       success : function (results) {
+        console.log("SUXXESS!");
+        console.log(results);
         if (results.finished == true) {
+          console.log("finished early");
           return;
         }
         var price = results.price;
@@ -67,7 +70,7 @@ function plot_graph(id, price, slow, fast) {
       { label : graph_name + " [20]", data: slow },
     ];
 
-  var options = {  };
+  var options = { };
 
   // clear the HTML otherwise continually calling $.plot extends height
   $(id).html("");

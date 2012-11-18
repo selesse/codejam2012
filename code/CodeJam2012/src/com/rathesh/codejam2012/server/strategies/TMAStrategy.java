@@ -12,12 +12,11 @@ public class TMAStrategy extends AbstractStrategy {
 
   @Override
   public double update(double price) {
-    
 
     smaStrategy.update(price);
     List<Double> smaAverages = smaStrategy.getAverages();
     double triangularAverage = 0;
-    if (smaAverages.size() < N ) {
+    if (smaAverages.size() < N) {
       for (int i = 0; i < smaAverages.size(); i++) {
         triangularAverage += smaAverages.get(i);
       }

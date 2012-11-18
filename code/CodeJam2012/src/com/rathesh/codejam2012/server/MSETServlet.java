@@ -49,8 +49,6 @@ public class MSETServlet extends HttpServlet {
     if (request.getParameter("go") != null) {
       Thread t = ThreadManager.createBackgroundThread(new StockExchange());
       t.start();
-      // Thread t = new Thread(new StockExchange());
-      // t.start();
     }
     else if (request.getParameter("report") != null) {
       createReportFile(report.toString());

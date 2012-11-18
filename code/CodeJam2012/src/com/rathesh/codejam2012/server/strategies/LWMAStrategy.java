@@ -17,7 +17,7 @@ public class LWMAStrategy extends AbstractStrategy {
     double linearAverage = 0;
     for (double d : this.prices) {
       linearAverage += d * i;
-      count+= i++;
+      count += i++;
     }
     addToAverages(linearAverage / count);
     this.notifyObservers(linearAverage / count);

@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.rathesh.codejam2012.server.strategies.GraphAdapter;
 
 public class DataDump {
   DataList price;
@@ -33,44 +32,42 @@ public class DataDump {
   }
 
   public void setPrices(List<Double> prices) {
-    price.addAll(prices);
+    price.set(prices);
   }
 
   public void setSmaSlow(List<Double> smaSlows) {
- 
-    smaSlow.addAll(smaSlows);
 
+    smaSlow.set(smaSlows);
 
   }
 
   public void setSmaFast(List<Double> smaFasts) {
-    smaFast.addAll(smaFasts);
+    smaFast.set(smaFasts);
   }
 
   public void setLwmaSlow(List<Double> lwmaSlows) {
- 
 
-    lwmaSlow.addAll(lwmaSlows);
+    lwmaSlow.set(lwmaSlows);
   }
 
   public void setLwmaFast(List<Double> lwmaFasts) {
-    lwmaFast.addAll(lwmaFasts);
+    lwmaFast.set(lwmaFasts);
   }
 
   public void setEmaSlow(List<Double> emaSlows) {
-    emaSlow.addAll(emaSlows);
+    emaSlow.set(emaSlows);
   }
 
   public void setEmaFast(List<Double> emaFasts) {
-    emaFast.addAll(emaFasts);
+    emaFast.set(emaFasts);
   }
 
   public void setTmaSlow(List<Double> tmaSlows) {
-    tmaSlow.addAll(tmaSlows);
+    tmaSlow.set(tmaSlows);
   }
 
   public void setTmaFast(List<Double> tmaFasts) {
-    tmaFast.addAll(tmaFasts);
+    tmaFast.set(tmaFasts);
   }
 
   @Override
@@ -79,16 +76,16 @@ public class DataDump {
     builder.registerTypeAdapter(DataList.class, new GraphAdapter());
     Gson gson = builder.create();
     String json = "{";
-    json = json +"\"price\":"+gson.toJson(price)+",";
-    json = json +"\"smaSlow\":"+gson.toJson(smaSlow)+",";
-    json = json +"\"smaFast\":"+gson.toJson(smaFast)+",";
-    json = json +"\"lwmaSlow\":"+gson.toJson(lwmaSlow)+",";
-    json = json +"\"lwmaFast\":"+gson.toJson(lwmaFast)+",";
-    json = json +"\"emaSlow\":"+gson.toJson(emaSlow)+",";
-    json = json +"\"emaFast\":"+gson.toJson(emaFast)+",";
-    json = json +"\"tmaSlow\":"+gson.toJson(tmaSlow)+",";
-    json = json +"\"tmaFast\":"+gson.toJson(tmaFast)+"}";
-    
+    json = json + "\"price\":" + gson.toJson(price) + ",";
+    json = json + "\"smaSlow\":" + gson.toJson(smaSlow) + ",";
+    json = json + "\"smaFast\":" + gson.toJson(smaFast) + ",";
+    json = json + "\"lwmaSlow\":" + gson.toJson(lwmaSlow) + ",";
+    json = json + "\"lwmaFast\":" + gson.toJson(lwmaFast) + ",";
+    json = json + "\"emaSlow\":" + gson.toJson(emaSlow) + ",";
+    json = json + "\"emaFast\":" + gson.toJson(emaFast) + ",";
+    json = json + "\"tmaSlow\":" + gson.toJson(tmaSlow) + ",";
+    json = json + "\"tmaFast\":" + gson.toJson(tmaFast) + "}";
+
     return json;
 
   }

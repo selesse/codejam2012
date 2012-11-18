@@ -24,7 +24,7 @@ import com.rathesh.codejam2012.server.strategies.TMAStrategy;
 public class StockExchange implements Runnable {
 
   private List<Double> prices;
-  
+
   @Override
   public void run() {
     startStockExchange();
@@ -104,7 +104,7 @@ public class StockExchange implements Runnable {
         }
         MSETServlet.time++;
       }
-      
+
       synchronized (MSETServlet.dataDump) {
         MSETServlet.dataDump = new DataDump();
       }
@@ -114,9 +114,9 @@ public class StockExchange implements Runnable {
       e.printStackTrace();
     }
   }
-  
+
   public void addToPrices(double d) {
-    if (this.prices.size() >= MSETServlet.WINDOW_SIZE ) {
+    if (this.prices.size() >= MSETServlet.WINDOW_SIZE) {
       this.prices.remove(0);
     }
     this.prices.add(d);
