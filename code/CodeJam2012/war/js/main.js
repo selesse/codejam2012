@@ -17,8 +17,7 @@ $(document).ready(function() {
       $("div#schedule").toggleClass("hidden");
       $("div#graphs").toggleClass("hidden");
 
-      // TODO hide this button
-      $("button#go").toggleClass("disabled");
+      $("button#go").toggleClass("hidden");
     }
     start_data_mining();
   });
