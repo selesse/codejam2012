@@ -26,6 +26,26 @@ Steps to launch application:
  6 Once the Go button is pressed you can press the Reports button after the
    trading session to send the transaction report to Silanis.
 
+Notes:
+
+The reason why we have created the RelayServer is because a simple jQuery
+request to Silanis gave us a cross-origin resource sharing (CORS) issue.
+
+We couldn't use curl on our server side due to app restriction settings on
+Google App Engine (we messed up packaging, hence the whole Eclipse)...
+
+We couldn't send the request to Silanas and get the response purely through
+JavaScript, so we tried to figure out another way to do it.
+
+A proxy server (RelayServer) was thus implemented to accept the jQuery request
+from our application and send the request to Silanis using the curl system
+command. We were able to actually get the data from the client, get the
+response from Silanis, but failed at giving the ceremony ID to the client.
+
+You can see this if you just run the server and it printlns the ceremony id,
+but there's a JSON error.
+
+
 Assumptions:
 
 The behaviour of managers assumes that sell transactions can take place before
