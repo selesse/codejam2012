@@ -61,14 +61,15 @@ public class Server implements HttpHandler {
     String ceremonyId = getOutAndErrStream(p);
     System.out.println(ceremonyId);
     
-//    URI uri = t.getRequestURI();
-//    String q = uri.getRawQuery();
-//    String callback = q.substring(q.indexOf("jQuery"), q.indexOf("&", q.indexOf("jQuery")));
-//    System.out.println(callback);
-    
+    // URI uri = t.getRequestURI();
+    // String q = uri.getRawQuery();
+    // String callback = q.substring(q.indexOf("jQuery"), q.indexOf("&",
+    // q.indexOf("jQuery")));
+    // System.out.println(callback);
+
     com.sun.net.httpserver.Headers responseHeaders = t.getResponseHeaders();
     responseHeaders.add("Access-Control-Allow-Origin", "http://localhost");
-    responseHeaders.add("Content-Type", "text/plain");
+    responseHeaders.add("Content-Type", "application/json");
     t.sendResponseHeaders(200, ceremonyId.getBytes().length);
     
     t.getResponseBody().write(ceremonyId.trim().getBytes());
