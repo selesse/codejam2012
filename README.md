@@ -45,6 +45,8 @@ response from Silanis, but failed at giving the ceremony ID to the client.
 You can see this if you just run the server and it printlns the ceremony id,
 but there's a JSON error.
 
+When we tested, we were able to send the emails, but just unable to display
+the token.
 
 Assumptions:
 

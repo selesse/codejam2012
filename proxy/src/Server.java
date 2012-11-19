@@ -28,7 +28,7 @@ public class Server implements HttpHandler {
   public void handle(HttpExchange t) throws IOException {
     System.out.println("Got request");
 
-    String wget = "/opt/local/bin/wget http://localhost:8888/codejam2012/mset?report -O report.json";
+    String wget = "/usr/bin/wget http://localhost:8888/codejam2012/mset?report -O report.json";
     String cmd = "curl -Ss -X \"POST\" -H \"Authorization: Basic Y29kZWphbTpBRkxpdGw0TEEyQWQx\" -H \"Content-Type:application/json\" --data-binary @"
         + System.getProperty("user.dir") + "/report.json"
         + " \"https://stage-api.e-signlive.com/aws/rest/services/codejam\"";
