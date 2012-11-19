@@ -1,12 +1,34 @@
 McGill Code Jam 2012
 ====================
 
-Code Jam 2012 repository. It's the same problem as last year (and the year
-before). Look out!
+Team: Rathesh.com
+Names: Alex Bourgeois, Rathesh Sabapathipillai, Alex Selesse
+
+Steps to launch application:
+
+ 1 Open Eclipse and run the CodeJam2012 project (Right-click -> Run As -> 
+   Web Application). You must also run the RelayServer project (Right-click -> 
+   Run As -> Java Application).
+
+
+ 2 Open a terminal (Ctrl + Alt + T). 
+
+ 3 Navigate to the Desktop ("cd Desktop") and run the script 
+   start_team rathesh.sh.  ("./start_team_rathesh").
+
+ 4 Make sure a browser opens (if it does not open automatically manually open a
+   browser and go to the following url: 
+   http://127.0.0.1:8888/CodeJam2012.html?gwt.codesvr=127.0.0.1:9997).
+
+ 5 A page should appear with the manager schedule. Click on the Go button at the
+   bottom of the page to start price feed.
+
+ 6 Once the Go button is pressed you can press the Reports button after the
+   trading session to send the transaction report to Silanis.
 
 Assumptions:
 
-The behaviour of Managers assumes that sell transactions can take place before
+The behaviour of managers assumes that sell transactions can take place before
 buy transaction (i.e. the first transaction of the day can be a sell).
 
 We assume that we only need to send the last 100 transactions to Silanis for
@@ -26,3 +48,18 @@ To set the number of price points stored on server side modify the value of
 WINDOW_SIZE in CodeJam2012/src/com/rathesh/codejam2012/server/MSETServlet.java.
 The default is 34200 which is everything.
 
+Appendix:
+
+To obtain the json containing price points (including strategies prices) you can
+navigate to the following url (make sure the price feed is active i.e. Go was
+pressed):
+    http://127.0.0.1:8888/codejam2012/mset?data
+
+Similarly the json containing all the report information (transactions) can be
+obtained by navigating to the following url:
+    http://127.0.01:8888/codejam2012/mset?report
+
+JUnit tests were created for testing the different moving average algorithms and
+manager transactions. To run these JUnit tests go to eclipse. Under the project
+CodeJam2012 in test and run the desired JUnit test case (Right-click -> Run As
+-> JUnit Test).

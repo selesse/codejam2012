@@ -91,7 +91,6 @@ public class MSETServlet extends HttpServlet {
       return true;
     }
     catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
       return false;
     }
@@ -119,7 +118,6 @@ public class MSETServlet extends HttpServlet {
       return true;
     }
     catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
       return false;
     }

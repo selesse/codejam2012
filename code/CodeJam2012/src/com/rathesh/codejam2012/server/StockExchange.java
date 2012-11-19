@@ -82,7 +82,6 @@ public class StockExchange implements Runnable {
         }
         double price = Double.parseDouble(token);
 
-        // TODO take care of WINDOW_SIZE
         addToPrices(price);
         // 4. Update strategies which will update managers, Managers will call
         // sendBuy or Sell
@@ -291,7 +290,6 @@ public class StockExchange implements Runnable {
       }
     }
     catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }
