@@ -33,35 +33,7 @@ $(document).ready(function() {
         },
         success : function (results) {
           console.log("Successfully got report:\n" + JSON.stringify(results));
-          json =
-          {
-            "team" : "Flying monkeys",
-            "destination" : "mcgillcodejam2012@gmail.com",
-            "transactions" : [
-              {
-                "time" : "8004",
-                "type" : "buy",
-                "price" : 120,
-                "manager" : "Manager1",
-                "strategy" : "EMA"
-              },
-              {
-                "time" : "9589",
-                "type" : "sell",
-                "price" : 122,
-                "manager" : "Manager2",
-                "strategy" : "LWMA"
-              },
-              {
-                "time" : "16542",
-                "type" : "buy",
-                "price" : 118,
-                "manager" : "Manager1",
-                "strategy" : "TMA"
-              }
-            ]
-          };
-          update_table(json); // TODO change to results
+          update_table(results);
           if ($("button#report").html() == "Report") {
             console.log("sending to silanis");
             send_data_to_silanis(results);
