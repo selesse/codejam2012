@@ -6,8 +6,10 @@ Names: Alex Bourgeois, Rathesh Sabapathipillai, Alex Selesse
 
 Steps to launch application:
 
- 1 Open Eclipse and run the CodeJam2012 project
-   (Right-click -> Run As -> Web Application)
+ 1 Open Eclipse and run the CodeJam2012 project (Right-click -> Run As -> 
+   Web Application). You must also run the RelayServer project (Right-click -> 
+   Run As -> Java Application).
+
 
  2 Open a terminal (Ctrl + Alt + T). 
 
