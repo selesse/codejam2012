@@ -1,17 +1,31 @@
 
 <html>
-  <head>
-    <title>Whatever</title>
-   <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
-  </head>
-  <body>
-    <script>
-      function test() {
-        $.ajax( { url: "http://localhost:4444", type:"POST", 
-          data:{"team":"Rathesh.com", "destination":"mcgillcodejam2012@gmail.com", "transactions":[{"time":"8004", "type":"buy", "price":120, "manager":"Manager2", "strategy":"EMA"}]}, error : function(error) { console.log(error);}, success : function(response) { console.log(response); } });
-      }
-      test();
-    </script>
-  </body>
+<head>
+<title>Whatever</title>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+<script>
+var returnval;
+function test() {
+  $.ajax( { url: "http://localhost:4444",
+    type: "get",
+    crossDomain: true, dataType: "jsonp", contentType: "application/json",
+    jsonp : false,
+    data: {"team":"Rathesh.com", "destination":"mcgillcodejam2012@gmail.com", "transactions":[{"time":"8004", "type":"buy", "price":120, "manager":"Manager2", "strategy":"EMA"}]},
+    error : function(error) {
+      console.log("fail"); console.log(error);
+      returnval = error;
+    },
+    success : function(response) {
+      console.log("success");
+      console.log(response);
+    }
+  });
+}
+test();
+console.log(returnval);
+</script>
+</body>
 </html>
 
